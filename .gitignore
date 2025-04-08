@@ -39,3 +39,5 @@ secret.tf
 secrets.tf
 
 terraform.tfvars
+
+.venv/
