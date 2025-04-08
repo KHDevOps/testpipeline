@@ -37,3 +37,5 @@ Thumbs.db
 *.pub
 secret.tf
 secrets.tf
+
+terraform.tfvars
