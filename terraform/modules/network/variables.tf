@@ -47,11 +47,11 @@ variable "bastion_instance_id" {
 variable "private_subnet_cidr" {
   description = "CIDR block for the private subnet (jenkins)"
   type        = string
-  default     = "172.31.48.0/20"
+  default     = "10.0.3.0/24"
 }
 
 variable "public_subnet_cidr" {
   description = "CIDR block pour le sous-réseau public du bastion"
   type        = string
-  default     = "172.31.32.0/20"
+  default     = "10.0.103.0/24"
 }
