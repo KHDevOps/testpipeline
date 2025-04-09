@@ -19,7 +19,7 @@ variable "vpc_tag" {
 variable "availability_zones" {
   description = "Availability zones"
   type        = list(string)
-  default     = ["eu-north-1a", "eu-north-1b"]
+  default     = ["eu-west-3a", "eu-west-3b"]
 }
 
 variable "public_subnet_cidrs" {
