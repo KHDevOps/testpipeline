@@ -1,7 +1,7 @@
 variable "aws_region" {
   description = "Region of the deployment"
   type        = string
-  default     = "eu-north-1a"
+  default     = "eu-west-3a"
 }
 
 variable "vpc_cidr" {
