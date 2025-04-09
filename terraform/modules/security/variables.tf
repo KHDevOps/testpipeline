@@ -22,3 +22,8 @@ variable "account_id" {
   description = "Account ID"
   type        = string
 }
+
+variable "my_ip" {
+    description = "Personal Ip"
+    type = string
+}
