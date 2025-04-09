@@ -9,3 +9,13 @@ variable "allowed_admin_cidrs" {
   type        = list(string)
   default     = []
 }
+
+variable "public_key_ssh_path" {
+    description = "Ssh path"
+    type = string
+}
+
+variable "my_ip" {
+  description = "Personal IP"
+  type        = string
+}
