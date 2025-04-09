@@ -2,7 +2,7 @@ resource "aws_security_group" "jenkins_sg" {
   name        = "jenkins-sg"
   description = "Security group for Jenkins server"
   revoke_rules_on_delete = true
-
+  vpc_id      = var.vpc_id 
   tags = {
     Name = "jenkins-sg"
   }
@@ -11,7 +11,7 @@ resource "aws_security_group" "jenkins_sg" {
 resource "aws_security_group" "bastion_sg" {
   name        = "bastion-sg"
   description = "Security group for Bastion host"
-  
+  vpc_id      = var.vpc_id 
   tags = {
     Name = "bastion-sg"
   }
