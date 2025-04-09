@@ -9,3 +9,11 @@ module "compute" {
 
   public_key_ssh_path = var.public_key_ssh_path
 }
+
+resource "local_file" "ansible_inventory" {
+  content = templatefile("${path.module}/../../../ansible/inventory/terraform_inventory.tpl", {
+    jenkins_ip = module.compute.jenkins_private_ip
+    bastion_ip = module.compute.bastion_public_ip
+  })
+  filename = "${path.module}/../../../ansible/inventory/hosts.ini"
+}
