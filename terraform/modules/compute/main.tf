@@ -50,47 +50,6 @@ resource "aws_instance" "jenkins" {
   tags = {
     Name = "jenkins-server"
   }
-
-  user_data = <<-EOF
-    #!/bin/bash
-    # Mise à jour du système
-    yum update -y
-    
-    # Installation de Docker
-    amazon-linux-extras install docker -y
-    systemctl start docker
-    systemctl enable docker
-    usermod -aG docker ec2-user
-    
-    # Installation de Docker Compose
-    curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    chmod +x /usr/local/bin/docker-compose
-    
-    # Création du répertoire pour les données Jenkins
-    mkdir -p /var/jenkins_home
-    chown 1000:1000 /var/jenkins_home
-    
-    # Création du docker-compose.yml pour Jenkins
-    cat > /home/ec2-user/docker-compose.yml <<'EOL'
-    version: '3'
-    services:
-      jenkins:
-        image: jenkins/jenkins:lts
-        container_name: jenkins
-        user: root
-        ports:
-          - "8080:8080"
-          - "50000:50000"
-        volumes:
-          - /var/jenkins_home:/var/jenkins_home
-          - /var/run/docker.sock:/var/run/docker.sock
-        restart: always
-    EOL
-    
-    # Lancement de Jenkins via Docker Compose
-    cd /home/ec2-user
-    docker-compose up -d
-  EOF
 }
 
 # Instance Bastion
