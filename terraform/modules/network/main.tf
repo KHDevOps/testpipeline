@@ -19,21 +19,6 @@ resource "aws_vpc" "vpc" {
   }
 }
 
-resource "aws_default_security_group" "default" {
-  vpc_id = aws_vpc.vpc.id
-
-  tags = {
-    Name = "${var.cluster_name}-default-sg"
-  }
-}
-
-resource "aws_flow_log" "flow_log" {
-  iam_role_arn    = var.flow_log_role_arn
-  log_destination = var.flow_log_destination_arn
-  traffic_type    = "ALL"
-  vpc_id          = aws_vpc.vpc.id
-}
-
 resource "aws_subnet" "public" {
   count = 2
 
@@ -129,26 +114,4 @@ resource "aws_route_table_association" "private" {
 
   subnet_id      = aws_subnet.private[count.index].id
   route_table_id = aws_route_table.private.id
-}
-
-resource "aws_security_group" "eks_cluster" {
-  #checkov:skip=CKV2_AWS_5:This security group is used by the EKS cluster in another module
-  name        = "${var.cluster_name}-cluster-sg"
-  description = "Security group for the eks control plane"
-  vpc_id      = aws_vpc.vpc.id
-
-  tags = {
-    Name = "${var.cluster_name}-cluster-sg"
-  }
-}
-
-resource "aws_security_group" "eks_nodes" {
-  #checkov:skip=CKV2_AWS_5:This security group is used by the EKS cluster in another module
-  name        = "${var.cluster_name}-node-sg"
-  description = "Security group for EKS worker nodes"
-  vpc_id      = aws_vpc.vpc.id
-
-  tags = {
-    Name = "${var.cluster_name}-node-sg"
-  }
 }

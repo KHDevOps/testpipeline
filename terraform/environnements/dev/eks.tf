@@ -5,11 +5,10 @@ module "eks" {
 
   private_subnet_ids   = module.network.private_subnet_ids
   public_subnet_ids    = module.network.public_subnet_ids
-  cluster_sg_id        = module.network.eks_cluster_sg_id
+  cluster_sg_id        = module.security.eks_cluster_sg_id
   eks_cluster_role_arn = module.iam.eks_cluster_role_arn
   eks_node_role_arn    = module.iam.eks_node_role_arn
-
-  account_id = data.aws_caller_identity.current.account_id
+  eks_secrets_arn = module.security.eks_secrets_arn
 
   allowed_admin_cidrs = var.allowed_admin_cidrs
 

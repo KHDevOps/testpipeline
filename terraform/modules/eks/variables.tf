@@ -41,7 +41,7 @@ variable "eks_node_role_arn" {
   type        = string
 }
 
-variable "account_id" {
-  description = "Account ID"
-  type        = string
+variable "eks_secrets_arn" {
+  description = "EKS Secret ARN"
+  type = string
 }

@@ -8,7 +8,7 @@ output "public_subnet_ids" {
   value       = aws_subnet.public[*].id
 }
 
-output "eks_cluster_sg_id" {
-  description = "Group security id for cluster Kubernetes"
-  value       = aws_security_group.eks_cluster.id
+output "vpc_id" {
+  description = "Id of the Vpc"
+  value = aws_vpc.vpc.id
 }

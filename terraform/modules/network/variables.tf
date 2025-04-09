@@ -38,13 +38,3 @@ variable "cluster_name" {
   description = "Name of the EKS cluster"
   type        = string
 }
-
-variable "flow_log_role_arn" {
-  description = "ARN VPC Flow Logs"
-  type        = string
-}
-
-variable "flow_log_destination_arn" {
-  description = "ARN VPC Flow Logs (CloudWatch Log Group)"
-  type        = string
-}

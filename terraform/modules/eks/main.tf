@@ -24,7 +24,7 @@ resource "aws_eks_cluster" "main" {
 
   encryption_config {
     provider {
-      key_arn = aws_kms_key.eks_secrets.arn
+      key_arn = var.eks_secrets_arn
     }
     resources = ["secrets"]
   }
@@ -47,46 +47,6 @@ resource "aws_eks_node_group" "main" {
   }
 
   disk_size = 20
-}
-
-resource "aws_kms_key" "eks_secrets" {
-  description             = "KMS key for EKS cluster secrets encryption"
-  deletion_window_in_days = 7
-  enable_key_rotation     = true
-
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Sid    = "Enable IAM User Permissions",
-        Effect = "Allow",
-        Principal = {
-          AWS = "arn:aws:iam::${var.account_id}:root"
-        },
-        Action   = "kms:*",
-        Resource = "*"
-      },
-      {
-        Sid    = "Allow EKS service to use the key",
-        Effect = "Allow",
-        Principal = {
-          Service = "eks.amazonaws.com"
-        },
-        Action = [
-          "kms:Encrypt",
-          "kms:Decrypt",
-          "kms:ReEncrypt*",
-          "kms:GenerateDataKey*",
-          "kms:DescribeKey"
-        ],
-        Resource = "*"
-      }
-    ]
-  })
-
-  tags = {
-    Name = "${var.cluster_name}-secrets-key"
-  }
 }
 
 resource "null_resource" "update_kubeconfig" {
