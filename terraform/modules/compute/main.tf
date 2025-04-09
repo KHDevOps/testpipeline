@@ -45,7 +45,6 @@ resource "aws_instance" "jenkins" {
   }
   
   associate_public_ip_address = false
-  ebs_optimized = true
   
   tags = {
     Name = "jenkins-server"
@@ -55,7 +54,7 @@ resource "aws_instance" "jenkins" {
 # Instance Bastion
 resource "aws_instance" "bastion" {
   ami                    = data.aws_ami.amazon_linux_2.id
-  instance_type          = "t2.micro"
+  instance_type          = "t3.micro"
   key_name               = aws_key_pair.jenkins_key.key_name
   vpc_security_group_ids = [var.bastion_sg_id]
   subnet_id              = var.public_subnet_bastion_id

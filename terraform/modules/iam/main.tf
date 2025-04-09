@@ -157,4 +157,5 @@ resource "aws_cloudwatch_log_group" "flow_log_group" {
   name              = "/aws/vpc/${var.cluster_name}/flowlogs"
   retention_in_days = 365
   kms_key_id        = aws_kms_key.log_encryption_key.arn
+  skip_destroy      = true
 }
