@@ -1,0 +1,49 @@
+---
+# Mise à jour du système
+- name: Update system packages
+  yum:
+    name: '*'
+    state: latest
+
+# Installation des dépendances
+- name: Install required packages
+  yum:
+    name:
+      - java-11-amazon-corretto
+      - wget
+    state: present
+
+# Ajout du repo Jenkins
+- name: Add Jenkins repository
+  get_url:
+    url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+    dest: /etc/yum.repos.d/jenkins.repo
+
+# Import clé GPG Jenkins
+- name: Import Jenkins GPG key
+  rpm_key:
+    key: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+    state: present
+
+# Installation de Jenkins
+- name: Install Jenkins
+  yum:
+    name: jenkins
+    state: present
+
+# Configuration du service Jenkins
+- name: Create Jenkins service template
+  template:
+    src: jenkins.service.j2
+    dest: /etc/systemd/system/jenkins.service
+    owner: root
+    group: root
+    mode: '0644'
+
+# Démarrer et activer Jenkins
+- name: Start and enable Jenkins service
+  systemd:
+    name: jenkins
+    state: started
+    enabled: yes
+    daemon_reload: yes

@@ -1,0 +1,12 @@
+[Unit]
+Description=Jenkins Automation Server
+After=network.target
+
+[Service]
+Type=forking
+User=jenkins
+ExecStart=/usr/bin/jenkins
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

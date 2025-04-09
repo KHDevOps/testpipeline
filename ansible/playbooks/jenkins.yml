@@ -1,0 +1,43 @@
+---
+- name: Install Jenkins
+  hosts: tag_Name_jenkins_server  
+
+  become: true
+  tasks:
+    
+    - name: Update system packages
+      yum:
+        name: '*'
+        state: latest
+        update_only: yes
+    
+    
+    - name: Install Java
+      yum:
+        name: java-11-amazon-corretto
+        state: present
+    
+    
+    - name: Add Jenkins repository
+      get_url:
+        url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+        dest: /etc/yum.repos.d/jenkins.repo
+    
+    
+    - name: Import Jenkins GPG key
+      rpm_key:
+        key: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+        state: present
+    
+   
+    - name: Install Jenkins
+      yum:
+        name: jenkins
+        state: present
+    
+   
+    - name: Start and enable Jenkins
+      systemd:
+        name: jenkins
+        state: started
+        enabled: yes
