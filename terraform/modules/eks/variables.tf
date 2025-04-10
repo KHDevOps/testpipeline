@@ -13,7 +13,7 @@ variable "allowed_admin_cidrs" {
 variable "instance_type" {
   description = "Instance type for the Kubernetes cluster"
   type        = string
-  default     = "t3.small"
+  default     = "t2.micro"
 }
 
 variable "private_subnet_ids" {

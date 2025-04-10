@@ -41,7 +41,7 @@ resource "aws_default_security_group" "default" {
 resource "aws_flow_log" "flow_log" {
   iam_role_arn    = var.flow_log_role_arn
   log_destination = var.flow_log_destination_arn
-  traffic_type    = "ALL"
+  traffic_type    = "REJECT"
   vpc_id          = var.vpc_id
 }
 

@@ -28,7 +28,7 @@ resource "aws_instance" "jenkins" {
   vpc_security_group_ids = [var.jenkins_sg_id]
   subnet_id              = var.private_subnet_jenkins_id
   
-  monitoring = true
+  monitoring = false
   
   metadata_options {
     http_endpoint               = "enabled"
@@ -38,9 +38,9 @@ resource "aws_instance" "jenkins" {
   }
   
   root_block_device {
-    volume_size           = 20
-    volume_type           = "gp3"
-    encrypted             = true
+    volume_size           = 8
+    volume_type           = "gp2"
+    encrypted             = false
     delete_on_termination = true
   }
   
@@ -59,7 +59,7 @@ resource "aws_instance" "bastion" {
   vpc_security_group_ids = [var.bastion_sg_id]
   subnet_id              = var.public_subnet_bastion_id
   
-  monitoring = true
+  monitoring = false
   
   metadata_options {
     http_endpoint               = "enabled"
@@ -70,8 +70,8 @@ resource "aws_instance" "bastion" {
   
   root_block_device {
     volume_size           = 8
-    volume_type           = "gp3"
-    encrypted             = true
+    volume_type           = "gp2"
+    encrypted             = false
     delete_on_termination = true
   }
   
