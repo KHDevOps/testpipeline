@@ -19,3 +19,9 @@ variable "my_ip" {
   description = "Personal IP"
   type        = string
 }
+
+variable "git_repo_url" {
+  description = "Repo url"
+  type        = string
+  default = "https://github.com/Leomendoza13/eks-scalable-devops-platform"
+}
