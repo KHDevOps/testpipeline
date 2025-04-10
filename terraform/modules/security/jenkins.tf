@@ -86,3 +86,13 @@ resource "aws_security_group_rule" "jenkins_ssh_from_bastion" {
   security_group_id        = aws_security_group.jenkins_sg.id
   description              = "SSH from bastion only"
 }
+
+resource "aws_security_group_rule" "bastion_icmp_ingress" {
+  type              = "ingress"
+  from_port         = -1
+  to_port           = -1
+  protocol          = "icmp"
+  cidr_blocks       = [var.my_ip]
+  security_group_id = aws_security_group.bastion_sg.id
+  description       = "ICMP (ping) access from admin IP only"
+}
