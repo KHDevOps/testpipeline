@@ -57,14 +57,14 @@ resource "aws_security_group_rule" "bastion_ssh_ingress" {
   description       = "SSH access from admin IP only"
 }
 
-resource "aws_security_group_rule" "bastion_https_egress" {
+resource "aws_security_group_rule" "bastion_http_egress" {
   type              = "egress"
-  from_port         = 443
-  to_port           = 443
+  from_port         = 80
+  to_port           = 80
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.bastion_sg.id
-  description       = "HTTPS outbound for updates"
+  description       = "HTTP outbound for updates"
 }
 
 resource "aws_security_group_rule" "bastion_ssh_egress" {
@@ -95,4 +95,14 @@ resource "aws_security_group_rule" "bastion_icmp_ingress" {
   cidr_blocks       = [var.my_ip]
   security_group_id = aws_security_group.bastion_sg.id
   description       = "ICMP (ping) access from admin IP only"
+}
+
+resource "aws_security_group_rule" "bastion_all_egress" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.bastion_sg.id
+  description       = "Allow all outbound traffic"
 }
