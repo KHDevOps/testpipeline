@@ -29,7 +29,7 @@ resource "aws_eks_cluster" "main" {
     resources = ["secrets"]
   }
 
-  enabled_cluster_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+  enabled_cluster_log_types = ["api"]
 }
 
 resource "aws_eks_node_group" "main" {
@@ -46,7 +46,8 @@ resource "aws_eks_node_group" "main" {
     min_size     = 1
   }
 
-  disk_size = 20
+  disk_size = 8
+  capacity_type = "ON_DEMAND"
 }
 
 resource "null_resource" "update_kubeconfig" {
