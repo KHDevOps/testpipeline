@@ -1,4 +1,4 @@
-module security {
+/*module security {
     source = "../../modules/security"
 
     cluster_name = local.cluster_name
@@ -9,4 +9,4 @@ module security {
     #flow_log_role_arn        = module.iam.flow_log_role_arn
     #flow_log_destination_arn = module.iam.flow_log_group_arn
 
-}
+}*/
