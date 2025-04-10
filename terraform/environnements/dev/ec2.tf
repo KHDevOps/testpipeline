@@ -1,4 +1,4 @@
-module "compute" {
+/*module "compute" {
   source = "../../modules/compute"
 
   bastion_sg_id = module.security.bastion_sg_id
@@ -16,4 +16,4 @@ resource "local_file" "ansible_inventory" {
     bastion_ip = module.compute.bastion_public_ip
   })
   filename = "${path.module}/../../../ansible/inventory/hosts.ini"
-}
+}*/

@@ -7,7 +7,7 @@ terraform {
     }
   }
 }
-
+/*
 resource "aws_security_group" "eks_cluster" {
   #checkov:skip=CKV2_AWS_5:This security group is used by the EKS cluster in another module
   name        = "${var.cluster_name}-cluster-sg"
@@ -83,4 +83,4 @@ resource "aws_kms_key" "eks_secrets" {
   tags = {
     Name = "${var.cluster_name}-secrets-key"
   }
-}
+}*/

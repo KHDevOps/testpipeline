@@ -5,5 +5,5 @@ module "network" {
 
   cluster_name = local.cluster_name
 
-  bastion_instance_id = module.compute.bastion_instance_id
+ # bastion_instance_id = module.compute.bastion_instance_id
 }

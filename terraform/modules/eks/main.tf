@@ -15,13 +15,14 @@ resource "aws_eks_cluster" "main" {
   version  = "1.28"
 
   vpc_config {
-    subnet_ids              = concat(var.private_subnet_ids, var.public_subnet_ids)
-    security_group_ids      = [var.cluster_sg_id]
+    #subnet_ids              = concat(var.private_subnet_ids, var.public_subnet_ids)
+    subnet_ids = var.subnet_ids
+    #security_group_ids      = [var.cluster_sg_id]
     endpoint_private_access = true
     endpoint_public_access  = true
     public_access_cidrs     = var.allowed_admin_cidrs
   }
-
+  /*
   encryption_config {
     provider {
       key_arn = var.eks_secrets_arn
@@ -29,14 +30,14 @@ resource "aws_eks_cluster" "main" {
     resources = ["secrets"]
   }
 
-  enabled_cluster_log_types = ["api"]
+  enabled_cluster_log_types = ["api"]*/
 }
 
 resource "aws_eks_node_group" "main" {
   cluster_name    = aws_eks_cluster.main.name
   node_group_name = "${var.cluster_name}-ng"
   node_role_arn   = var.eks_node_role_arn
-  subnet_ids      = var.private_subnet_ids
+  subnet_ids      = var.subnet_ids
 
   instance_types = [var.instance_type]
 

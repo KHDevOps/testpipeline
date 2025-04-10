@@ -8,6 +8,17 @@ terraform {
   }
 }
 
+data "aws_vpc" "default" {
+  default = true
+}
+
+data "aws_subnets" "default" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
+}
+/*
 resource "aws_vpc" "vpc" {
   cidr_block           = var.vpc_cidr
   enable_dns_hostnames = true
@@ -17,8 +28,9 @@ resource "aws_vpc" "vpc" {
   tags = {
     Name = var.vpc_tag
   }
-}
+}*/
 
+/*
 resource "aws_subnet" "public" {
   count = 2
 
@@ -114,4 +126,4 @@ resource "aws_route_table_association" "private" {
 
   subnet_id      = aws_subnet.private[count.index].id
   route_table_id = aws_route_table.private.id
-}
+}*/

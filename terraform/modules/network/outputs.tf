@@ -1,4 +1,4 @@
-output "private_subnet_ids" {
+/*output "private_subnet_ids" {
   description = "Private subnets list ids"
   value       = aws_subnet.private[*].id
 }
@@ -21,4 +21,13 @@ output public_subnet_bastion_id {
 output private_subnet_jenkins_id {
   description = "Id Jenkins private subnet"
   value = aws_subnet.private_subnet_jenkins.id
+}
+*/
+output "subnet_ids" {
+  value = data.aws_subnets.default.ids
+}
+
+output "vpc_id" {
+  description = "Id of the Vpc"
+  value = data.aws_vpc.default.id
 }

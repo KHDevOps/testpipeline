@@ -16,6 +16,11 @@ variable "instance_type" {
   default     = "t2.micro"
 }
 
+variable "subnet_ids" {
+  description = "Id of the subnet"
+  type        = list(string)
+}
+/*
 variable "private_subnet_ids" {
   description = "List of private subnet IDs"
   type        = list(string)
@@ -31,6 +36,11 @@ variable "cluster_sg_id" {
   type        = string
 }
 
+variable "eks_secrets_arn" {
+  description = "EKS Secret ARN"
+  type = string
+}*/
+
 variable "eks_cluster_role_arn" {
   description = "IAM role ARN for EKS cluster"
   type        = string
@@ -41,7 +51,3 @@ variable "eks_node_role_arn" {
   type        = string
 }
 
-variable "eks_secrets_arn" {
-  description = "EKS Secret ARN"
-  type = string
-}

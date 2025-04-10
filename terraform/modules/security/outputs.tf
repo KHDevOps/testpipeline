@@ -1,4 +1,4 @@
-output "eks_cluster_sg_id" {
+/*output "eks_cluster_sg_id" {
   description = "Group security id for cluster Kubernetes"
   value       = aws_security_group.eks_cluster.id
 }
@@ -16,4 +16,4 @@ output "jenkins_sg_id" {
 output "bastion_sg_id" {
     description = "Bastion security group ID"
     value = aws_security_group.bastion_sg.id
-}
+}*/

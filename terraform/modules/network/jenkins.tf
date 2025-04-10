@@ -1,4 +1,4 @@
-resource "aws_subnet" "private_subnet_jenkins" {
+/*resource "aws_subnet" "private_subnet_jenkins" {
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = var.private_subnet_cidr
   availability_zone       = var.aws_region
@@ -43,4 +43,4 @@ resource "aws_route_table_association" "bastion_route_table_assoc" {
     aws_route_table.public,
     aws_internet_gateway.igw
   ]
-}
+}*/
