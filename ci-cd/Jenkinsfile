@@ -1,6 +1,9 @@
-
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'hashicorp/terraform:latest'
+        }
+    }
     
     environment {
         // Define environment name for clarity
