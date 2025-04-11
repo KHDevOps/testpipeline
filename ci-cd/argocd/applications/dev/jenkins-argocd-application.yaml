@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jenkins
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Leomendoza13/eks-scalable-devops-platform.git
+    #targetRevision: HEAD
+    #Change branch
+    targetRevision: terraform
+    path: kubernetes/base/jenkins
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: devops-tools
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
