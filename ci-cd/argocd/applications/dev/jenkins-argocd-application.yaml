@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Leomendoza13/eks-scalable-devops-platform
-    path: helm-charts/jenkins
-    targetRevision: terraform
+    repoURL: https://charts.jenkins.io
+    chart: jenkins
+    targetRevision: 4.7.0
     helm:
       valueFiles:
         - jenkins-values.yaml
