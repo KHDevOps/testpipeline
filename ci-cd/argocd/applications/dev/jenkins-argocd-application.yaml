@@ -6,13 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://charts.jenkins.io
-    chart: jenkins
-    targetRevision: "4.3.0"
-    helm:
-      releaseName: jenkins
-      valueFiles:
-        - https://raw.githubusercontent.com/Leomendoza13/eks-scalable-devops-platform/terraform/helm-charts/jenkins/jenkins-values.yaml
+    repoURL: https://github.com/Leomendoza13/eks-scalable-devops-platform
+    path: /helm-charts/jenkins 
+    targetRevision: terraform 
   destination:
     server: https://kubernetes.default.svc
     namespace: devops-tools
