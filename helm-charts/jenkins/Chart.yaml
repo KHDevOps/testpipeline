@@ -3,7 +3,7 @@ name: jenkins
 description: A Helm chart for Jenkins
 type: application
 version: 0.1.0
-appVersion: "2.414.3"
+appVersion: "2.414.2"
 dependencies:
   - name: jenkins
     version: "4.6.0"
