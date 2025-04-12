@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Leomendoza13/eks-scalable-devops-platform
-    path: helm-charts/jenkins
-    targetRevision: terraform
+    repoURL: https://github.com/jenkinsci/helm-charts
+    path: charts/jenkins
+    targetRevision: main  # ou la version que tu souhaites
     helm:
       valueFiles:
         - values.yaml
