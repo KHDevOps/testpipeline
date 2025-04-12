@@ -11,7 +11,7 @@ spec:
     targetRevision: terraform
     helm:
       valueFiles:
-        - jenkins-values.yaml
+        - values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: devops-tools
