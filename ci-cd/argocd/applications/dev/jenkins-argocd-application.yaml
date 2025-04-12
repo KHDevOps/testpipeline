@@ -6,11 +6,13 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Leomendoza13/eks-scalable-devops-platform.git
-    #targetRevision: HEAD
-    #Change branch
-    targetRevision: terraform
-    path: kubernetes/base/jenkins
+    repoURL: https://charts.jenkins.io
+    chart: jenkins
+    targetRevision: "4.3.0"
+    helm:
+      releaseName: jenkins
+      valueFiles:
+        - https://raw.githubusercontent.com/Leomendoza13/eks-scalable-devops-platform/terraform/helm-charts/jenkins/jenkins-values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: devops-tools
