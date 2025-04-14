@@ -1,0 +1,6 @@
+---
+argocd_chart_repo: "https://argoproj.github.io/argo-helm"
+argocd_chart_name: "argo-cd"
+argocd_chart_version: "5.51.4"  # À adapter selon la version souhaitée
+git_repo_url: "https://github.com/Leomendoza13/eks-scalable-devops-platform"
+git_branch: "terraform"
