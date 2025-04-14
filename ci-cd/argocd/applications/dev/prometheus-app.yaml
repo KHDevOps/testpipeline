@@ -12,6 +12,7 @@ spec:
     helm:
       valueFiles:
         - ../../overlays/dev/prometheus/values.yaml
+      skipCrds: false 
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
@@ -21,3 +22,5 @@ spec:
       selfHeal: true
     syncOptions:
     - CreateNamespace=true
+    - ApplyOutOfSyncOnly=false
+    - ServerSideApply=true
