@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/Leomendoza13/eks-scalable-devops-platform
-    path: kubernetes/overlays/dev/monitoring/
+    path: kubernetes/overlays/dev/monitoring
     targetRevision: terraform
   destination:
     server: https://kubernetes.default.svc
