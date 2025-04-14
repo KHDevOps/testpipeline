@@ -1,5 +1,0 @@
-server:
-  enabled: true
-  persistentVolume:
-    enabled: true
-    size: 8Gi
