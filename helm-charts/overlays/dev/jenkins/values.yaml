@@ -1,1 +1,6 @@
-# overlays/jenkins/values.yaml
+controller:
+  admin:
+    password: "password123"
+
+  additionalPlugins:
+   - prometheus:2.0.11

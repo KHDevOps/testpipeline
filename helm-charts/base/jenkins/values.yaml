@@ -78,7 +78,7 @@ controller:
     username: "admin"
     # -- Admin password created as a secret if `controller.admin.createSecret` is true
     # @default -- <random password>
-    password: "password123"
+    password:
 
     # -- The key in the existing admin secret containing the username
     userKey: jenkins-admin-user
@@ -407,7 +407,6 @@ controller:
     - workflow-aggregator:608.v67378e9d3db_1
     - git:5.7.0
     - configuration-as-code:1953.v148f87d74b_1e
-    - prometheus:2.0.11
 
   # If set to false, Jenkins will download the minimum required version of all dependencies.
   # -- Download the minimum required version or latest version of all dependencies
