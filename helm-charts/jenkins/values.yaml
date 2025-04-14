@@ -1371,14 +1371,3 @@ helmtest:
       repository: "bats/bats"
       # -- Tag of the image to test the framework
       tag: "1.11.1"
-
-#MY VALUES
-controller:
-  JCasC:
-    enabled: true  
-    defaultConfig: false
-    configScripts:
-      jenkins: |
-        jenkins:
-          securityRealm: "none"  
-          authorizationStrategy: "loggedInUsersCanDoAnything"  
