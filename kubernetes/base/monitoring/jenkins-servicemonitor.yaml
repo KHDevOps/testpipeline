@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: jenkins-monitor
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/part-of: monitoring
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: jenkins 
+  endpoints:
+  - port: http  # Le port où Jenkins expose ses métriques
+    path: /prometheus  # Le chemin où Jenkins expose ses métriques
+    interval: 30s
+    scrapeTimeout: 10s
