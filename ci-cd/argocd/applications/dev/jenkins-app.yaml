@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/Leomendoza13/eks-scalable-devops-platform
     path: helm-charts/base/jenkins
-    targetRevision: terraform
+    targetRevision: aws
     helm:
       valueFiles:
         - ../../overlays/dev/jenkins/values.yaml
