@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Leomendoza13/eks-scalable-devops-platform
+    path: helm-charts/base/prometheus
+    targetRevision: terraform
+    helm:
+      valueFiles:
+        - ../../overlays/dev/prometheus/values.yaml
+      skipCrds: false 
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ApplyOutOfSyncOnly=false
+    - ServerSideApply=true

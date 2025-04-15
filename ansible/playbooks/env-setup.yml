@@ -1,0 +1,26 @@
+---
+- name: Setup Kubernetes environment
+  hosts: kubernetes
+  gather_facts: false
+  tasks:
+    - name: Ensure Minikube is running for dev environment
+      ansible.builtin.command: minikube status
+      register: minikube_status
+      changed_when: false
+      ignore_errors: true
+      when: environment == 'dev'
+      
+    - name: Start Minikube if not running
+      ansible.builtin.command: minikube start
+      when: 
+        - environment == 'dev'
+        - minikube_status.rc != 0
+      
+    - name: Enable required addons for dev environment
+      ansible.builtin.command: "minikube addons enable {{ item }}"
+      loop:
+        - dashboard
+        - metrics-server
+        - ingress
+      when: environment == 'dev'
+      changed_when: false
