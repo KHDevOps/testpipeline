@@ -1,4 +1,4 @@
-# eks-scalable-devops-platform
+# EKS Scalable DevOps Platform
 
 This project provides a scalable DevOps platform deployed on Amazon EKS. The platform includes Kubernetes cluster provisioning with Terraform, CI/CD pipeline setup with Jenkins, and monitoring with Prometheus and Grafana.
 
@@ -24,6 +24,111 @@ A high-level overview of the architecture:
 - **Prometheus & Grafana** enable monitoring and visualization
 
 ## Project Structure
+
+```bash
+.
+├── ansible
+│   ├── group_vars
+│   │   └── dev
+│   ├── inventory
+│   │   ├── dev
+│   │   ├── prod
+│   │   └── staging
+│   ├── playbooks
+│   └── roles
+│       └── argocd
+│           ├── defaults
+│           ├── tasks
+│           └── templates
+├── ci-cd
+│   └── argocd
+│       └── applications
+│           ├── dev
+│           ├── prod
+│           └── staging
+├── demo-app
+│   └── src
+├── helm-charts
+│   ├── base
+│   │   ├── jenkins
+│   │   │   └── templates
+│   │   │       └── tests
+│   │   └── prometheus
+│   │       ├── charts
+│   │       │   ├── crds
+│   │       │   │   ├── crds
+│   │       │   │   ├── files
+│   │       │   │   └── templates
+│   │       │   │       └── upgrade
+│   │       │   ├── grafana
+│   │       │   │   ├── ci
+│   │       │   │   ├── dashboards
+│   │       │   │   └── templates
+│   │       │   │       └── tests
+│   │       │   ├── kube-state-metrics
+│   │       │   │   └── templates
+│   │       │   ├── prometheus-node-exporter
+│   │       │   │   └── templates
+│   │       │   └── prometheus-windows-exporter
+│   │       │       └── templates
+│   │       └── templates
+│   │           ├── alertmanager
+│   │           ├── exporters
+│   │           │   ├── core-dns
+│   │           │   ├── kube-api-server
+│   │           │   ├── kube-controller-manager
+│   │           │   ├── kube-dns
+│   │           │   ├── kube-etcd
+│   │           │   ├── kube-proxy
+│   │           │   ├── kube-scheduler
+│   │           │   └── kubelet
+│   │           ├── grafana
+│   │           │   └── dashboards-1.14
+│   │           ├── prometheus
+│   │           │   └── rules-1.14
+│   │           ├── prometheus-operator
+│   │           │   └── admission-webhooks
+│   │           │       ├── deployment
+│   │           │       └── job-patch
+│   │           └── thanos-ruler
+│   ├── demo-app
+│   │   ├── templates
+│   │   └── values
+│   │       ├── dev
+│   │       ├── prod
+│   │       └── staging
+│   └── overlays
+│       ├── dev
+│       │   ├── grafana
+│       │   ├── jenkins
+│       │   └── prometheus
+│       ├── prod
+│       └── staging
+├── kubernetes
+│   ├── base
+│   │   ├── monitoring
+│   │   │   ├── grafana
+│   │   │   └── prometheus
+│   │   ├── networking
+│   │   └── security
+│   └── overlays
+│       ├── dev
+│       │   └── monitoring
+│       │       └── prometheus
+│       ├── prod
+│       └── staging
+└── terraform
+    ├── environnements
+    │   ├── dev
+    │   ├── prod
+    │   └── staging
+    └── modules
+        ├── compute
+        ├── eks
+        ├── iam
+        ├── network
+        └── security
+```
 
 ## Prerequisites
 
