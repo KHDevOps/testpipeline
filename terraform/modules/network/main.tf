@@ -8,17 +8,6 @@ terraform {
   }
 }
 
-data "aws_vpc" "default" {
-  default = true
-}
-
-data "aws_subnets" "default" {
-  filter {
-    name   = "vpc-id"
-    values = [data.aws_vpc.default.id]
-  }
-}
-/*
 resource "aws_vpc" "vpc" {
   cidr_block           = var.vpc_cidr
   enable_dns_hostnames = true
@@ -28,7 +17,7 @@ resource "aws_vpc" "vpc" {
   tags = {
     Name = var.vpc_tag
   }
-}*/
+}
 
 /*
 resource "aws_subnet" "public" {

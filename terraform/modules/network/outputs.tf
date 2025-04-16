@@ -23,11 +23,12 @@ output private_subnet_jenkins_id {
   value = aws_subnet.private_subnet_jenkins.id
 }
 */
-output "subnet_ids" {
-  value = data.aws_subnets.default.ids
+output "private_subnet_ids" {
+  description = "Les IDs des sous-réseaux privés"
+  value       = aws_subnet.private[*].id
 }
 
 output "vpc_id" {
   description = "Id of the Vpc"
-  value = data.aws_vpc.default.id
+  value = aws_vpc.vpc.id
 }
