@@ -9,7 +9,7 @@ module "eks" {
   eks_cluster_role_arn = module.iam.eks_cluster_role_arn
   eks_node_role_arn    = module.iam.eks_node_role_arn
   #eks_secrets_arn = module.security.eks_secrets_arn
-  subnet_ids = module.network.subnet_ids
+  subnet_ids = module.network.private_subnet_ids
 
   allowed_admin_cidrs = var.allowed_admin_cidrs
   /*
