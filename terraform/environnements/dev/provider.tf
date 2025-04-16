@@ -13,9 +13,16 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "~> 2.23"
     }
+    tls = {
+      source  = "hashicorp/tls"
+      version = "~> 4.0"
+    }
   }
 }
 
 provider "aws" {
   region = var.region
+}
+
+provider "tls" {
 }

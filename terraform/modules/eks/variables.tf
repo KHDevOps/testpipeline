@@ -13,7 +13,7 @@ variable "allowed_admin_cidrs" {
 variable "instance_type" {
   description = "Instance type for the Kubernetes cluster"
   type        = string
-  default     = "t2.micro"
+  default     = "t3.medium"
 }
 
 variable "subnet_ids" {
@@ -50,4 +50,3 @@ variable "eks_node_role_arn" {
   description = "IAM role ARN for EKS nodes"
   type        = string
 }
-
