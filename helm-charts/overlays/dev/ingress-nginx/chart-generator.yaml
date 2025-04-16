@@ -1,0 +1,10 @@
+apiVersion: builtin
+kind: HelmChartInflationGenerator
+metadata:
+  name: ingress-nginx
+name: ingress-nginx
+releaseName: ingress-nginx
+namespace: ingress-nginx
+chartHome: ../../../base/
+chartPath: ingress-nginx
+valuesFile: values-patch.yaml
