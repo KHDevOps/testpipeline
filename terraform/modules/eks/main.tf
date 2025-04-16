@@ -8,6 +8,10 @@ terraform {
   }
 }
 
+data "aws_ssm_parameter" "eks_ami" {
+  name = "/aws/service/eks/optimized-ami/${aws_eks_cluster.main.version}/amazon-linux-2/recommended/image_id"
+}
+
 #checkov:skip=CKV_AWS_39:Public endpoint permitted in dev environment
 resource "aws_eks_cluster" "main" {
   name     = var.cluster_name
@@ -17,7 +21,7 @@ resource "aws_eks_cluster" "main" {
   vpc_config {
     #subnet_ids              = concat(var.private_subnet_ids, var.public_subnet_ids)
     subnet_ids = var.subnet_ids
-    #security_group_ids      = [var.cluster_sg_id]
+    security_group_ids      = [var.cluster_sg_id]
     endpoint_private_access = true
     endpoint_public_access  = true
     public_access_cidrs     = var.allowed_admin_cidrs
@@ -33,6 +37,14 @@ resource "aws_eks_cluster" "main" {
   enabled_cluster_log_types = ["api"]*/
 }
 
+resource "aws_launch_template" "eks_nodes" {
+  name_prefix   = "${var.cluster_name}-node-"
+  image_id      = data.aws_ssm_parameter.eks_ami.value
+  instance_type = var.instance_type
+  
+  vpc_security_group_ids = [var.node_sg_id] 
+}
+
 resource "aws_eks_node_group" "main" {
   cluster_name    = aws_eks_cluster.main.name
   node_group_name = "${var.cluster_name}-ng"
@@ -40,6 +52,12 @@ resource "aws_eks_node_group" "main" {
   subnet_ids      = var.subnet_ids
 
   instance_types = [var.instance_type]
+
+
+  launch_template {
+    id      = aws_launch_template.eks_nodes.id
+    version = "$Latest"
+  }
 
   scaling_config {
     desired_size = 2

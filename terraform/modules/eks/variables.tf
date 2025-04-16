@@ -31,15 +31,20 @@ variable "public_subnet_ids" {
   type        = list(string)
 }
 
+variable "eks_secrets_arn" {
+  description = "EKS Secret ARN"
+  type = string
+}*/
+
 variable "cluster_sg_id" {
   description = "Security group ID for the EKS cluster"
   type        = string
 }
 
-variable "eks_secrets_arn" {
-  description = "EKS Secret ARN"
-  type = string
-}*/
+variable "node_sg_id" {
+  description = "Security group ID for the EKS nodes"
+  type        = string
+}
 
 variable "eks_cluster_role_arn" {
   description = "IAM role ARN for EKS cluster"

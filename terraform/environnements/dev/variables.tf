@@ -15,11 +15,6 @@ variable "public_key_ssh_path" {
     type = string
 }
 
-variable "my_ip" {
-  description = "Personal IP"
-  type        = string
-}
-
 variable "git_repo_url" {
   description = "Repo url"
   type        = string
