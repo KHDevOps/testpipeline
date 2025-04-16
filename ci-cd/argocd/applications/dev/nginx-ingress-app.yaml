@@ -7,12 +7,15 @@ spec:
   project: default
   source:
     repoURL: https://github.com/Leomendoza13/eks-scalable-devops-platform
-    path: helm-charts/overlays/dev/ingress-nginx
+    path: helm-charts/ingress-nginx
     targetRevision: aws
+    helm:
+      valueFiles:
+        - ../../overlays/dev/ingress-nginx/values-patch.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: ingress-nginx
   syncPolicy:
     automated:
-      prune: true
       selfHeal: true
+      prune: true
