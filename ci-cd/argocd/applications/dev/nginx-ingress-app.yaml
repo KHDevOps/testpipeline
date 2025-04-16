@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/Leomendoza13/eks-scalable-devops-platform
-    path: helm-charts/ingress-nginx
+    path: path: helm-charts/base/ingress-nginx
     targetRevision: aws
     helm:
       valueFiles:
