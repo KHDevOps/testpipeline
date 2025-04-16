@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+helmCharts:
+  - name: ingress-nginx
+    path: ../../../base/ingress-nginx
+    releaseName: ingress-nginx
+    namespace: ingress-nginx
+    valuesFile: values-patch.yaml
+
+namespace: ingress-nginx
