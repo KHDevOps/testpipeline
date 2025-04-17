@@ -11,7 +11,7 @@ spec:
     targetRevision: aws
     helm:
       valueFiles:
-        - ../../kustomize/overlays/dev/prometheus/values.yaml
+        - ../../helm-values/dev/prometheus/values.yaml
       skipCrds: false 
   destination:
     server: https://kubernetes.default.svc

@@ -11,7 +11,7 @@ spec:
     targetRevision: aws
     helm:
       valueFiles:
-        - ../../helm-values/dev/prometheus/values.yaml
+        - ../../helm-values/dev/ingress-nginx/values-patch.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: ingress-nginx
