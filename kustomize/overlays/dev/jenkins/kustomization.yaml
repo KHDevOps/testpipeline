@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+
+helmCharts:
+  - name: jenkins
+    releaseName: jenkins
+    repo: "file://../../../helm-charts/jenkins"
+    
+    valuesFile: values-patch.yaml
