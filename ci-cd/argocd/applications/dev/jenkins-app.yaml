@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/Leomendoza13/eks-scalable-devops-platform
-    path: kustomize/overlays/dev
+    path: kustomize/overlays/dev/jenkins
     targetRevision: aws
   destination:
     server: https://kubernetes.default.svc
