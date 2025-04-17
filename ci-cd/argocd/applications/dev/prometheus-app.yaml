@@ -7,11 +7,11 @@ spec:
   project: default
   source:
     repoURL: https://github.com/Leomendoza13/eks-scalable-devops-platform
-    path: helm-charts/base/prometheus
+    path: helm-charts/prometheus
     targetRevision: aws
     helm:
       valueFiles:
-        - ../../overlays/dev/prometheus/values.yaml
+        - ../../kustomize/overlays/dev/prometheus/values.yaml
       skipCrds: false 
   destination:
     server: https://kubernetes.default.svc
