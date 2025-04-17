@@ -11,7 +11,7 @@ spec:
     targetRevision: aws
     helm:
       valueFiles:
-        - /../../kustomize/overlays/dev/jenkins/values.yaml
+        - ../../kustomize/overlays/dev/jenkins/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: devops-tools
