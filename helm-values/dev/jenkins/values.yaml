@@ -1,4 +1,5 @@
 controller:
+  jenkinsUrl: "http://localhost/jenkins/
   admin:
     password: "password123"
   env:
@@ -7,3 +8,6 @@ controller:
 
   additionalPlugins:
    - prometheus:2.0.11
+
+  ingress:
+    enabled: false
