@@ -1,13 +1,13 @@
 controller:
-  jenkinsUrl: "http://localhost/jenkins/
+  jenkinsUrl: "http://localhost/jenkins/"
   admin:
     password: "password123"
   env:
-  - name: JENKINS_OPTS
-    value: "--prefix=/jenkins"
-
+    - name: JENKINS_OPTS
+      value: "--prefix=/jenkins"
+  
   additionalPlugins:
-   - prometheus:2.0.11
+    - prometheus:2.0.11
 
   ingress:
     enabled: false
