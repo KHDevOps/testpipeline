@@ -1,6 +1,9 @@
 controller:
   admin:
     password: "password123"
+  env:
+  - name: JENKINS_OPTS
+    value: "--prefix=/jenkins"
 
   additionalPlugins:
    - prometheus:2.0.11
