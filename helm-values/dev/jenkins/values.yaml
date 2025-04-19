@@ -1,4 +1,5 @@
 controller:
+  jenkinsUrl: http://localhost/jenkins/
   admin:
     password: "password123"
   env:
