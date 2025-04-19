@@ -8,13 +8,13 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
-    nginx.ingress.kubernetes.io/webhook-bypass: "true"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
   - http:
       paths:
-      - path: /jenkins(/|$)(.*)
+      - path: /jenkins/?(.*)
         pathType: Prefix
         backend:
           service:
@@ -29,13 +29,13 @@ metadata:
   namespace: monitoring
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
-    nginx.ingress.kubernetes.io/webhook-bypass: "true"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
   - http:
       paths:
-      - path: /prometheus(/|$)(.*)
+      - path: /prometheus/?(.*)
         pathType: Prefix
         backend:
           service:
@@ -50,13 +50,15 @@ metadata:
   namespace: monitoring
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
-    nginx.ingress.kubernetes.io/webhook-bypass: "true"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      sub_filter '<head>' '<head><base href="/grafana/">';
+      sub_filter_once on;
 spec:
   rules:
   - http:
       paths:
-      - path: /grafana(/|$)(.*)
+      - path: /grafana/?(.*)
         pathType: Prefix
         backend:
           service:
@@ -71,13 +73,13 @@ metadata:
   namespace: monitoring
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
-    nginx.ingress.kubernetes.io/webhook-bypass: "true"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
   - http:
       paths:
-      - path: /alertmanager(/|$)(.*)
+      - path: /alertmanager/?(.*)
         pathType: Prefix
         backend:
           service:
