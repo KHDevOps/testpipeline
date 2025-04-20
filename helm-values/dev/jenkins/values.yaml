@@ -1,10 +1,13 @@
 controller:
   jenkinsUrl: "http://localhost/jenkins/"
+  jenkinsUriPrefix: "/jenkins"
   admin:
     password: "password123"
   env:
     - name: JENKINS_OPTS
-      value: "--prefix=/jenkins"
+      value: "--webroot=/var/jenkins_cache/war --prefix=/jenkins"
+    - name: JENKINS_UNIX_PREFIX
+      value: "/jenkins"
   
   additionalPlugins:
     - prometheus:2.0.11
