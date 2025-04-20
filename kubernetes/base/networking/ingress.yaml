@@ -10,9 +10,10 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
-  - http:
+  - host: eksprometheus.duckdns.org
+    http:
       paths:
-      - path: /prometheus/?(.*)
+      - path: /(.*)
         pathType: Prefix
         backend:
           service:
@@ -29,12 +30,13 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /grafana/$1
+    nginx.ingress.kubernetes.io/rewrite-target: /$1  # Modifié pour une redirection directe
 spec:
   rules:
-  - http:
+  - host: eksgrafana.duckdns.org  # Ajout du host dédié pour Grafana
+    http:
       paths:
-      - path: /grafana/?(.*)
+      - path: /(.*)
         pathType: Prefix
         backend:
           service:
@@ -53,15 +55,38 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
-  - http:
+  - host: eksalertmanager.duckdns.org 
+    http:
       paths:
-      - path: /alertmanager/?(.*)
+      - path: /(.*)
         pathType: Prefix
         backend:
           service:
             name: prometheus-kube-prometheus-alertmanager
             port:
               number: 9093
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jenkins-ingress
+  namespace: devops-tools
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+  - host: eksjenkins.duckdns.org
+    http:
+      paths:
+      - path: /(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: jenkins
+            port:
+              number: 8080
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
