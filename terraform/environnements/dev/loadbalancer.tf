@@ -5,5 +5,6 @@ module "loadbalancer" {
   vpc_id = module.network.vpc_id
   load_balancer_sg_id = module.security.lb_sg_id
   eks_nodes_sg_id = module.security.eks_nodes_sg_id
-  eks_node_ids = module.eks.eks_node_ids
+  cluster_name = local.cluster_name
+
 }

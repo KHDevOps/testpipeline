@@ -18,9 +18,10 @@ variable "load_balancer_sg_id" {
     type = string
 }
 
-variable "eks_node_ids" {
-  description = "Liste des IDs des nœuds EKS"
-  type        = list(string)
+variable "cluster_name" {
+  type        = string
+  description = "The name of the eks"
+  default     = "eks-cluster"
 }
 
 variable "eks_nodes_sg_id" {
