@@ -42,7 +42,15 @@ resource "aws_launch_template" "eks_nodes" {
   image_id      = data.aws_ssm_parameter.eks_ami.value
   instance_type = var.instance_type
   
-  vpc_security_group_ids = [var.node_sg_id] 
+  vpc_security_group_ids = [var.node_sg_id]
+  
+  block_device_mappings {
+    device_name = "/dev/xvda"
+    ebs {
+      volume_size = 8
+      volume_type = "gp2"
+    }
+  }
 }
 
 resource "aws_eks_node_group" "main" {
@@ -65,7 +73,6 @@ resource "aws_eks_node_group" "main" {
     min_size     = 1
   }
 
-  disk_size = 8
   capacity_type = "ON_DEMAND"
 }
 
