@@ -59,7 +59,7 @@ resource "aws_eks_node_group" "main" {
   node_role_arn   = var.eks_node_role_arn
   subnet_ids      = var.subnet_ids
 
-  instance_types = [var.instance_type]
+  #instance_types = [var.instance_type]
 
 
   launch_template {
