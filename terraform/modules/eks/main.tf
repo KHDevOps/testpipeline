@@ -76,3 +76,22 @@ resource "null_resource" "update_kubeconfig" {
     command = "aws eks update-kubeconfig --region eu-west-3 --name eks-cluster-dev"
   }
 }
+
+data "aws_instances" "eks_nodes" {
+  depends_on = [aws_eks_node_group.main]
+  
+  filter {
+    name   = "tag:kubernetes.io/cluster/${var.cluster_name}"
+    values = ["owned"]
+  }
+  
+  filter {
+    name   = "tag:eks:nodegroup-name"
+    values = ["${var.cluster_name}-ng"]
+  }
+  
+  filter {
+    name   = "instance-state-name"
+    values = ["running"]
+  }
+}

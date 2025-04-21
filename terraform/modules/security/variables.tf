@@ -13,3 +13,8 @@ variable "allowed_admin_cidrs" {
   type        = list(string)
   default     = []
 }
+
+variable "environment" {
+    type = string
+    description = "Environnement string"
+}

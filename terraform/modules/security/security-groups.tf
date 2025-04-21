@@ -86,3 +86,49 @@ resource "aws_security_group_rule" "admin_api_access" {
   cidr_blocks       = var.allowed_admin_cidrs
   description       = "Allow admin workstations to communicate with the cluster API Server"
 }
+
+resource "aws_security_group" "lb_sg" {
+  name        = "${var.environment}-monitoring-lb-sg"
+  description = "Security Group for ALB serives monitoring"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = var.allowed_admin_cidrs
+    description = "HTTP from allowed admin only"
+  }
+  
+  # Règles d'egress - vers les nœuds EKS sur les NodePorts
+  egress {
+    from_port       = 30000
+    to_port         = 32767
+    protocol        = "tcp"
+    security_groups = [aws_security_group.eks_nodes.id]
+    description     = "Trafic to EKS nodeports"
+  }
+
+  # Autoriser les requêtes DNS
+  egress {
+    from_port   = 53
+    to_port     = 53
+    protocol    = "udp"
+    cidr_blocks = ["0.0.0.0/0"] 
+    description = "DNS lookups"
+  }
+
+  #For now
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"  
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "All egress trafic is allowed"
+  }
+
+  tags = {
+    Name        = "${var.environment}-monitoring-lb-sg"
+    Environment = var.environment
+  }
+}
