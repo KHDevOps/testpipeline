@@ -43,6 +43,15 @@ resource "aws_launch_template" "eks_nodes" {
   instance_type = var.instance_type
   
   vpc_security_group_ids = [var.node_sg_id]
+
+  user_data = base64encode(<<-EOF
+    #!/bin/bash
+    set -o xtrace
+    /etc/eks/bootstrap.sh ${aws_eks_cluster.main.name} \
+      --b64-cluster-ca ${aws_eks_cluster.main.certificate_authority[0].data} \
+      --apiserver-endpoint ${aws_eks_cluster.main.endpoint}
+    EOF
+  )
   
   block_device_mappings {
     device_name = "/dev/xvda"

@@ -8,8 +8,6 @@ resource "aws_subnet" "public" {
 
   tags = {
     Name = "public-subnet-${count.index + 1}"
-    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
-    "kubernetes.io/role/internal-elb" = "1"
   }
 }
 
