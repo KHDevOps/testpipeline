@@ -38,6 +38,7 @@ variable "cluster_name" {
   description = "Name of the EKS cluster"
   type        = string
 }
+
 /*
 variable "bastion_instance_id" {
   description = "Instance Bastion Id"
