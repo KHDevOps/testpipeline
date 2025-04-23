@@ -13,12 +13,7 @@ output "lb_sg_id" {
   value       = aws_security_group.lb_sg.id
 }
 
-output "ssh_key_secret_arn" {
-  description = "ARN du secret pour la clé SSH"
-  value       = aws_secretsmanager_secret.ssh_key.arn
-}
-
 output "admin_ip_secret_arn" {
   description = "ARN du secret pour l'IP admin"
-  value       = aws_secretsmanager_secret.admin_ip.arn
+  value       = aws_secretsmanager_secret.admin_ips.arn
 }

@@ -11,6 +11,8 @@ module "eks" {
   eks_cluster_role_arn = module.iam.eks_cluster_role_arn
   eks_node_role_arn    = module.iam.eks_node_role_arn
 
+  
+
   depends_on = [
     module.security,
     module.iam.eks_cluster_policy_attachment

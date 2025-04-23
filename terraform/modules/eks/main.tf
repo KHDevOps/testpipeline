@@ -12,16 +12,16 @@ data "aws_ssm_parameter" "eks_ami" {
   name = "/aws/service/eks/optimized-ami/${aws_eks_cluster.main.version}/amazon-linux-2/recommended/image_id"
 }
 
-data "aws_secretsmanager_secret" "admin_ip" {
-  name = "${var.cluster_name}-admin-ip"
+data "aws_secretsmanager_secret" "admin_ips" {
+  name = "${var.cluster_name}-admin-ips"
 }
 
-data "aws_secretsmanager_secret_version" "admin_ip" {
-  secret_id = data.aws_secretsmanager_secret.admin_ip.id
+data "aws_secretsmanager_secret_version" "admin_ips" {
+  secret_id = data.aws_secretsmanager_secret.admin_ips.id
 }
 
 locals {
-  admin_ip_cidr = [data.aws_secretsmanager_secret_version.admin_ip.secret_string]
+  admin_ips_cidr = jsondecode(data.aws_secretsmanager_secret_version.admin_ips.secret_string)
 }
 
 #checkov:skip=CKV_AWS_39:Public endpoint permitted in dev environment
@@ -36,7 +36,7 @@ resource "aws_eks_cluster" "main" {
     security_group_ids      = [var.cluster_sg_id]
     endpoint_private_access = true
     endpoint_public_access  = true
-    public_access_cidrs     = local.admin_ip_cidr
+    public_access_cidrs     = local.admin_ips_cidr
   }
   /*
   encryption_config {

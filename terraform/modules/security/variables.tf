@@ -19,8 +19,8 @@ variable "environment" {
     description = "Environnement string"
 }
 
-variable "admin_ip" {
-  description = "IP admin avec format CIDR (ex: 123.45.67.89/32)"
-  type        = string
+variable "admin_ips" {
+  description = "IPs admins List with CIDR format (ex: [\"123.45.67.89/32\", \"98.76.54.32/32\"])"
+  type        = list(string)
   sensitive   = true
 }
