@@ -18,3 +18,9 @@ variable "environment" {
     type = string
     description = "Environnement string"
 }
+
+variable "admin_ip" {
+  description = "IP admin avec format CIDR (ex: 123.45.67.89/32)"
+  type        = string
+  sensitive   = true
+}

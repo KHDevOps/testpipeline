@@ -1,3 +1,15 @@
+data "aws_secretsmanager_secret" "admin_ip" {
+  name = "${var.cluster_name}-admin-ip"
+}
+
+data "aws_secretsmanager_secret_version" "admin_ip" {
+  secret_id = data.aws_secretsmanager_secret.admin_ip.id
+}
+
+locals {
+  admin_ip_cidr = [data.aws_secretsmanager_secret_version.admin_ip.secret_string]
+}
+
 # Security Group for EKS Control Plane
 resource "aws_security_group" "eks_cluster" {
   name        = "${var.cluster_name}-cluster-sg"
@@ -77,13 +89,13 @@ resource "aws_security_group_rule" "nodes_internal" {
 
 # Allow admin access to the Kubernetes API from specific IPs
 resource "aws_security_group_rule" "admin_api_access" {
-  count             = length(var.allowed_admin_cidrs) > 0 ? 1 : 0
+  count             = length(local.admin_ip_cidr) > 0 ? 1 : 0
   security_group_id = aws_security_group.eks_cluster.id
   type              = "ingress"
   protocol          = "tcp"
   from_port         = 443
   to_port           = 443
-  cidr_blocks       = var.allowed_admin_cidrs
+  cidr_blocks       = local.admin_ip_cidr
   description       = "Allow admin workstations to communicate with the cluster API Server"
 }
 
@@ -96,7 +108,7 @@ resource "aws_security_group" "lb_sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = var.allowed_admin_cidrs
+    cidr_blocks = local.admin_ip_cidr
     description = "HTTP from allowed admin only"
   }
   

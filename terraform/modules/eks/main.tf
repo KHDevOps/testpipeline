@@ -12,6 +12,18 @@ data "aws_ssm_parameter" "eks_ami" {
   name = "/aws/service/eks/optimized-ami/${aws_eks_cluster.main.version}/amazon-linux-2/recommended/image_id"
 }
 
+data "aws_secretsmanager_secret" "admin_ip" {
+  name = "${var.cluster_name}-admin-ip"
+}
+
+data "aws_secretsmanager_secret_version" "admin_ip" {
+  secret_id = data.aws_secretsmanager_secret.admin_ip.id
+}
+
+locals {
+  admin_ip_cidr = [data.aws_secretsmanager_secret_version.admin_ip.secret_string]
+}
+
 #checkov:skip=CKV_AWS_39:Public endpoint permitted in dev environment
 resource "aws_eks_cluster" "main" {
   name     = var.cluster_name
@@ -24,7 +36,7 @@ resource "aws_eks_cluster" "main" {
     security_group_ids      = [var.cluster_sg_id]
     endpoint_private_access = true
     endpoint_public_access  = true
-    public_access_cidrs     = var.allowed_admin_cidrs
+    public_access_cidrs     = local.admin_ip_cidr
   }
   /*
   encryption_config {
@@ -67,9 +79,6 @@ resource "aws_eks_node_group" "main" {
   node_group_name = "${var.cluster_name}-ng"
   node_role_arn   = var.eks_node_role_arn
   subnet_ids      = var.subnet_ids
-
-  #instance_types = [var.instance_type]
-
 
   launch_template {
     id      = aws_launch_template.eks_nodes.id
