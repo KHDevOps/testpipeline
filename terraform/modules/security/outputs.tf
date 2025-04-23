@@ -12,8 +12,3 @@ output "lb_sg_id" {
   description = "Load balancer Security group ID"
   value       = aws_security_group.lb_sg.id
 }
-
-output "admin_ip_secret_arn" {
-  description = "ARN du secret pour l'IP admin"
-  value       = aws_secretsmanager_secret.admin_ips.arn
-}

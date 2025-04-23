@@ -13,7 +13,7 @@ data "aws_ssm_parameter" "eks_ami" {
 }
 
 data "aws_secretsmanager_secret" "admin_ips" {
-  name = "${var.cluster_name}-admin-ips"
+  arn = var.admin_ips_secret_arn
 }
 
 data "aws_secretsmanager_secret_version" "admin_ips" {

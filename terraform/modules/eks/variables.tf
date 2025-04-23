@@ -34,3 +34,8 @@ variable "eks_node_role_arn" {
   description = "IAM role ARN for EKS nodes"
   type        = string
 }
+
+variable "admin_ips_secret_arn" {
+  description = "ARN du secret contenant les IPs admin"
+  type        = string
+}

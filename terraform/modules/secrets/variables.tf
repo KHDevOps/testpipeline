@@ -3,11 +3,6 @@ variable "cluster_name" {
   type        = string
 }
 
-variable "vpc_id" {
-    type = string
-    description = "Id of the VPC"
-}
-
 variable "environment" {
     type = string
     description = "Environnement string"
