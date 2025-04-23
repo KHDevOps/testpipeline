@@ -3,7 +3,6 @@ module "argocd" {
   
   namespace         = "argocd"
   
-  use_local_chart   = true
   local_chart_path  = "${path.module}/../../../helm-charts/argo-cd"
   
   values_file       = "${path.module}/../../../helm-values/dev/argocd/values.yaml"

@@ -24,9 +24,7 @@ resource "helm_release" "argocd" {
   namespace  = kubernetes_namespace.argocd.metadata[0].name
   
 
-  repository = var.use_local_chart
-  chart      = var.use_local_chart 
-  version    = var.use_local_chart
+  chart      = var.local_chart_path
   
   values = [
     var.values_file != "" ? file(var.values_file) : "",
