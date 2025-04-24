@@ -17,7 +17,7 @@ This DevOps platform allows:
 
 A high-level overview of the architecture:
 
-![EKS Scalable DevOps Platform Diagram](assets/eks_scalable_devops_platform_diagram.svg) 
+![EKS Scalable DevOps Platform Diagram](assets/eks_scalable_devops_platform_diagram.sv) 
 
 - **Amazon EKS** hosts the Kubernetes cluster
 - **Terraform** manages the AWS infrastructure
