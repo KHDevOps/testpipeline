@@ -7,23 +7,14 @@ variable "vpc_id" {
     type = string
     description = "Id of the VPC"
 }
-/*
-variable "flow_log_role_arn" {
-  description = "ARN VPC Flow Logs"
-  type        = string
-}
 
-variable "flow_log_destination_arn" {
-  description = "ARN VPC Flow Logs (CloudWatch Log Group)"
-  type        = string
-}*/
-
-variable "account_id" {
-  description = "Account ID"
-  type        = string
-}
-
-variable "my_ip" {
-    description = "Personal Ip"
+variable "environment" {
     type = string
+    description = "Environnement string"
+}
+
+variable "admin_ips" {
+  description = "IPs admins List with CIDR format (ex: [\"123.45.67.89/32\", \"98.76.54.32/32\"])"
+  type        = list(string)
+  sensitive   = true
 }

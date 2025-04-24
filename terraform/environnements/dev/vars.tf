@@ -3,5 +3,5 @@ data "aws_region" "current" {}
 
 locals {
   cluster_name = "eks-cluster-dev"
-
+  environment = "dev"
 }

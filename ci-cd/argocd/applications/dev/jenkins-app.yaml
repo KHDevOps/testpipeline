@@ -7,11 +7,12 @@ spec:
   project: default
   source:
     repoURL: https://github.com/Leomendoza13/eks-scalable-devops-platform
-    path: helm-charts/base/jenkins
-    targetRevision: terraform
+    path: helm-charts/jenkins
+    targetRevision: aws
     helm:
       valueFiles:
-        - ../../overlays/dev/jenkins/values.yaml
+        - ../../helm-values/dev/jenkins/values.yaml
+      skipCrds: false 
   destination:
     server: https://kubernetes.default.svc
     namespace: devops-tools

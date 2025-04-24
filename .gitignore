@@ -35,8 +35,6 @@ Thumbs.db
 *.pem
 *.key
 *.pub
-secret.tf
-secrets.tf
 
 terraform.tfvars
 

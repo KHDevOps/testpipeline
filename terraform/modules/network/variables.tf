@@ -38,20 +38,15 @@ variable "cluster_name" {
   description = "Name of the EKS cluster"
   type        = string
 }
-/*
-variable "bastion_instance_id" {
-  description = "Instance Bastion Id"
-  type        = string
+
+variable "cidr_block_route_private" {
+  description = "Cidr Block route table for private subnets"
+  type = string
+  default = "0.0.0.0/0"
 }
 
-variable "private_subnet_cidr" {
-  description = "CIDR block for the private subnet (jenkins)"
-  type        = string
-  default     = "10.0.3.0/24"
+variable "cidr_block_route_public" {
+  description = "Cidr Block route table for public subnets"
+  type = string
+  default = "0.0.0.0/0"
 }
-
-variable "public_subnet_cidr" {
-  description = "CIDR block pour le sous-réseau public du bastion"
-  type        = string
-  default     = "10.0.103.0/24"
-}*/
