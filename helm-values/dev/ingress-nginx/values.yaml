@@ -1,9 +1,16 @@
 controller:
   admissionWebhooks:
     enabled: false
+  resources:
+    requests:
+      cpu: 100m
+      memory: 190Mi
+    limits:
+      cpu: 200m
+      memory: 250Mi
   autoscaling:
     enabled: true
-    minReplicas: 2
-    maxReplicas: 5
+    minReplicas: 1
+    maxReplicas: 3
     targetCPUUtilizationPercentage: 70
     targetMemoryUtilizationPercentage: 80
