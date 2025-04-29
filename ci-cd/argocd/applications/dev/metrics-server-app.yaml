@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/Leomendoza13/eks-scalable-devops-platform
-    targetRevision: aws
+    targetRevision: readmev2
     path: helm-charts/metrics-server
     helm:
       valueFiles:

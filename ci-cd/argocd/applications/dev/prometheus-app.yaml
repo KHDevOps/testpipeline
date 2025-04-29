@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/Leomendoza13/eks-scalable-devops-platform
     path: helm-charts/prometheus
-    targetRevision: aws
+    targetRevision: readmev2
     helm:
       valueFiles:
         - ../../helm-values/dev/prometheus/values.yaml
