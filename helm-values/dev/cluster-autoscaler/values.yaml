@@ -2,22 +2,27 @@ autoDiscovery:
   clusterName: minikube
   enabled: false
 
-autoscalingGroups: []
-
 cloudProvider: "clusterapi"
 
 extraArgs:
-  scan-interval: "10s"
-  v: 4
-  logtostderr: true
-  stderrthreshold: info
-  skip-nodes-with-local-storage: "false"
-  skip-nodes-with-system-pods: "false"
-  testmode: "true"
+  scan-interval: "30s"
+  v: "4"
+  logtostderr: "true"
+  stderrthreshold: "info"
+  leader-elect: "false"
+  clusterapi-cloud-config-authoritative: "true"
+
+livenessProbe:
+  httpGet:
+    path: /health-check
+    port: 8085
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
 
 image:
   repository: registry.k8s.io/autoscaling/cluster-autoscaler
-  tag: v1.28.0  
+  tag: v1.28.0
 
 rbac:
   create: true
