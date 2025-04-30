@@ -13,10 +13,11 @@ extraArgs:
   stderrthreshold: info
   skip-nodes-with-local-storage: "false"
   skip-nodes-with-system-pods: "false"
+  testmode: "true"
 
 image:
   repository: registry.k8s.io/autoscaling/cluster-autoscaler
-  tag: v1.28.0
+  tag: v1.28.0  
 
 rbac:
   create: true
@@ -34,7 +35,3 @@ resources:
 
 service:
   port: 8085
-
-extraEnv:
-  - name: CLUSTER_AUTOSCALER_TESTMODE
-    value: "true"
