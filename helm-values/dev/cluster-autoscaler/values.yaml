@@ -1,24 +1,19 @@
-autoDiscovery:
-  clusterName: minikube
-  enabled: false
-
-cloudProvider: "clusterapi"
+# Configuration très simple pour tests
+cloudProvider: "mock"
 
 extraArgs:
-  scan-interval: "30s"
   v: "4"
   logtostderr: "true"
-  stderrthreshold: "info"
   leader-elect: "false"
-  clusterapi-cloud-config-authoritative: "true"
 
+# Désactiver la sonde de vivacité
 livenessProbe:
   httpGet:
     path: /health-check
     port: 8085
-  initialDelaySeconds: 30
-  periodSeconds: 10
-  timeoutSeconds: 5
+  initialDelaySeconds: 60
+  periodSeconds: 30
+  timeoutSeconds: 10
 
 image:
   repository: registry.k8s.io/autoscaling/cluster-autoscaler
@@ -26,9 +21,6 @@ image:
 
 rbac:
   create: true
-  serviceAccount:
-    create: true
-    name: cluster-autoscaler
 
 resources:
   limits:
@@ -37,6 +29,3 @@ resources:
   requests:
     cpu: 50m
     memory: 100Mi
-
-service:
-  port: 8085
