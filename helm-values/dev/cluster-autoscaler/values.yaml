@@ -1,0 +1,40 @@
+autoDiscovery:
+  clusterName: minikube
+  enabled: false
+
+autoscalingGroups: []
+
+cloudProvider: "clusterapi"
+
+extraArgs:
+  scan-interval: "10s"
+  v: 4
+  logtostderr: true
+  stderrthreshold: info
+  skip-nodes-with-local-storage: "false"
+  skip-nodes-with-system-pods: "false"
+
+image:
+  repository: registry.k8s.io/autoscaling/cluster-autoscaler
+  tag: v1.28.0
+
+rbac:
+  create: true
+  serviceAccount:
+    create: true
+    name: cluster-autoscaler
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 300Mi
+  requests:
+    cpu: 50m
+    memory: 100Mi
+
+service:
+  port: 8085
+
+extraEnv:
+  - name: CLUSTER_AUTOSCALER_TESTMODE
+    value: "true"

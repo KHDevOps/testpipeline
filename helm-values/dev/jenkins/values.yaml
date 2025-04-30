@@ -10,7 +10,6 @@ controller:
     limits:
       cpu: 1000m
       memory: 2048Mi
-  # Configuration HPA pour le controller Jenkins
   autoscaling:
     enabled: true
     minReplicas: 1
