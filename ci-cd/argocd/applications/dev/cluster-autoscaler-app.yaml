@@ -12,6 +12,9 @@ spec:
     helm:
       valueFiles:
         - ../../helm-values/dev/cluster-autoscaler/values.yaml
+      parameters:
+        - name: rbac.serviceAccount.annotations.eks\.amazonaws\.com/role-arn
+          value: "arn:aws:iam::773398142927:role/eks-cluster-dev-cluster-autoscaler"
   destination:
     server: https://kubernetes.default.svc
     namespace: kube-system
