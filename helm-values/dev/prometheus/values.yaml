@@ -35,3 +35,20 @@ grafana:
     minReplicas: 1
     maxReplicas: 2
     targetCPUUtilizationPercentage: 70
+  sidecar:
+    dashboards:
+      resources:
+        requests:
+          cpu: 50m
+          memory: 64Mi
+        limits:
+          cpu: 100m
+          memory: 128Mi
+    datasources:
+      resources:
+        requests:
+          cpu: 50m
+          memory: 64Mi
+        limits:
+          cpu: 100m
+          memory: 128M
