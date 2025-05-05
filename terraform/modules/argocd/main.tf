@@ -47,3 +47,13 @@ resource "helm_release" "argocd" {
     kubernetes_namespace.argocd
   ]
 }
+
+resource "null_resource" "helm_cleanup" {
+  depends_on = [helm_release.argocd]
+
+  provisioner "local-exec" {
+    when    = destroy
+    command = "kubectl delete namespace ${var.namespace} --ignore-not-found=true || true"
+    on_failure = continue
+  }
+}
