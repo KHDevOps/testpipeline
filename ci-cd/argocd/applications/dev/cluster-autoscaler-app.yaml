@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Leomendoza13/eks-scalable-devops-platform
+    repoURL: https://github.com/KHDevOps/eks-scalable-devops-platform
     path: helm-charts/cluster-autoscaler
     targetRevision: readmev2
     helm:

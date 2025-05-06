@@ -7,7 +7,7 @@ variable "region" {
 variable "git_repo_url" {
   description = "Repo url"
   type        = string
-  default = "https://github.com/Leomendoza13/eks-scalable-devops-platform"
+  default = "https://github.com/KHDevOps/eks-scalable-devops-platform"
 }
 
 variable "admin_ips" {
