@@ -32,11 +32,11 @@ variable "eks_nodes_sg_id" {
 variable "ingress_http_nodeport" {
   description = "NodePort HTTP de l'Ingress Controller"
   type        = number
-  default     = 32091
+  default     = 30889
 }
 
 variable "ingress_https_nodeport" {
   description = "NodePort HTTPS de l'Ingress Controller"
   type        = number
-  default     = 31672
+  default     = 30246
 }
