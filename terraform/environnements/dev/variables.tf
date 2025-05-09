@@ -15,3 +15,9 @@ variable "admin_ips" {
   type        = list(string)
   sensitive   = true
 }
+
+variable "domain_name" {
+  description = "Principal domain name"
+  type        = string
+  default     = "leo-mendoza.com"
+}

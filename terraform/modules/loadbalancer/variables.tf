@@ -40,3 +40,8 @@ variable "ingress_https_nodeport" {
   type        = number
   default     = 30246
 }
+
+variable "domain_name" {
+  description = "Domain name"
+  type = string
+}

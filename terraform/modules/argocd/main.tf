@@ -50,10 +50,14 @@ resource "helm_release" "argocd" {
 
 resource "null_resource" "helm_cleanup" {
   depends_on = [helm_release.argocd]
+  
+  triggers = {
+    namespace = var.namespace
+  }
 
   provisioner "local-exec" {
     when    = destroy
-    command = "kubectl delete namespace ${var.namespace} --ignore-not-found=true || true"
+    command = "kubectl delete namespace ${self.triggers.namespace} --ignore-not-found=true || true"
     on_failure = continue
   }
 }

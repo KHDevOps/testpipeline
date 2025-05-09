@@ -10,7 +10,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
-  - host: eksprometheus.duckdns.org
+  - host: prometheus.leo-mendoza.com
     http:
       paths:
       - path: /(.*)
@@ -30,10 +30,10 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$1  # Modifié pour une redirection directe
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
-  - host: eksgrafana.duckdns.org  # Ajout du host dédié pour Grafana
+  - host: grafana.leo-mendoza.com
     http:
       paths:
       - path: /(.*)
@@ -55,7 +55,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
-  - host: eksalertmanager.duckdns.org 
+  - host: alertmanager.leo-mendoza.com
     http:
       paths:
       - path: /(.*)
@@ -77,7 +77,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
-  - host: eksjenkins.duckdns.org
+  - host: jenkins.leo-mendoza.com
     http:
       paths:
       - path: /(.*)
@@ -100,7 +100,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: eksargocd.duckdns.org
+  - host: argocd.leo-mendoza.com
     http:
       paths:
       - path: /

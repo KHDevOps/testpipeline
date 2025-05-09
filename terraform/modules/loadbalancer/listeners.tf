@@ -25,7 +25,7 @@ resource "aws_lb_listener_rule" "prometheus" {
 
   condition {
     host_header {
-      values = ["eksprometheus.duckdns.org"]
+      values = ["prometheus.${var.domain_name}"]
     }
   }
 }
@@ -41,7 +41,7 @@ resource "aws_lb_listener_rule" "grafana" {
 
   condition {
     host_header {
-      values = ["eksgrafana.duckdns.org"]
+      values = ["grafana.${var.domain_name}"]
     }
   }
 }
@@ -57,7 +57,7 @@ resource "aws_lb_listener_rule" "alertmanager" {
 
   condition {
     host_header {
-      values = ["eksalertmanager.duckdns.org"]
+      values = ["alertmanager.${var.domain_name}"]
     }
   }
 }
@@ -73,7 +73,7 @@ resource "aws_lb_listener_rule" "jenkins" {
 
   condition {
     host_header {
-      values = ["eksjenkins.duckdns.org"]
+      values = ["jenkins.${var.domain_name}"]
     }
   }
 }
@@ -89,7 +89,7 @@ resource "aws_lb_listener_rule" "argocd" {
 
   condition {
     host_header {
-      values = ["eksargocd.duckdns.org"]
+      values = ["argocd.${var.domain_name}"]
     }
   }
 }
