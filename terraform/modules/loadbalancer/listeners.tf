@@ -4,11 +4,11 @@ resource "aws_lb_listener" "http" {
   protocol          = "HTTP"
   
   default_action {
-    type = "fixed-response"
-    fixed_response {
-      content_type = "text/html"
-      message_body = "<html><body><h1>Monitoring Services Portal</h1></body></html>"
-      status_code  = "200"
+    type = "redirect"
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
     }
   }
 }

@@ -99,6 +99,14 @@ resource "aws_security_group" "lb_sg" {
     cidr_blocks = var.admin_ips
     description = "HTTP from allowed admin only"
   }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = var.admin_ips
+    description = "HTTPS from allowed admin only"
+  }
   
   # Règles d'egress - vers les nœuds EKS sur les NodePorts
   egress {

@@ -135,4 +135,4 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ## Author
 
-Developed by Léo Mendoza. Feel free to reach out for questions, contributions, or feedback at leo.mendoza.pro@gmail.com
+Developed by Léo Mendoza. Feel free to reach out for questions, contributions, or feedback at leo.mendoza.pro@outlook.com
