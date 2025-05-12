@@ -7,18 +7,18 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
-  spec:
-    rules:
-    - host: prometheus.leo-mendoza.com
-      http:
-        paths:
-        - path: /(.*)
-          pathType: Prefix
-          backend:
-            service:
-              name: prometheus-kube-prometheus-prometheus
-              port:
-                number: 9090
+spec:
+  rules:
+  - host: prometheus.leo-mendoza.com
+    http:
+      paths:
+      - path: /(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: prometheus-kube-prometheus-prometheus
+            port:
+              number: 9090
 
 ---
 
@@ -31,18 +31,18 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
-  spec:
-    rules:
-    - host: grafana.leo-mendoza.com
-      http:
-        paths:
-        - path: /(.*)
-          pathType: Prefix
-          backend:
-            service:
-              name: prometheus-grafana
-              port:
-                number: 80
+spec:
+  rules:
+  - host: grafana.leo-mendoza.com
+    http:
+      paths:
+      - path: /(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: prometheus-grafana
+            port:
+              number: 80
 
 ---
 
@@ -55,18 +55,18 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
-  spec:
-    rules:
-    - host: alertmanager.leo-mendoza.com
-      http:
-        paths:
-        - path: /(.*)
-          pathType: Prefix
-          backend:
-            service:
-              name: prometheus-kube-prometheus-alertmanager
-              port:
-                number: 9093
+spec:
+  rules:
+  - host: alertmanager.leo-mendoza.com
+    http:
+      paths:
+      - path: /(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: prometheus-kube-prometheus-alertmanager
+            port:
+              number: 9093
 
 ---
 
@@ -79,18 +79,18 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
-  spec:
-    rules:
-    - host: jenkins.leo-mendoza.com
-      http:
-        paths:
-        - path: /(.*)
-          pathType: Prefix
-          backend:
-            service:
-              name: jenkins
-              port:
-                number: 8080
+spec:
+  rules:
+  - host: jenkins.leo-mendoza.com
+    http:
+      paths:
+      - path: /(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: jenkins
+            port:
+              number: 8080
 
 ---
 
@@ -101,16 +101,16 @@ metadata:
   namespace: argocd
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
-  spec:
-    ingressClassName: nginx
-    rules:
-    - host: argocd.leo-mendoza.com
-      http:
-        paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: argocd-server
-              port:
-                number: 80
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: argocd.leo-mendoza.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: argocd-server
+            port:
+              number: 80
