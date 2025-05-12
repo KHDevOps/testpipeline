@@ -140,3 +140,24 @@ resource "aws_security_group" "lb_sg" {
     Environment = var.environment
   }
 }
+
+
+resource "aws_security_group_rule" "nodes_ingress_from_lb_http" {
+  security_group_id        = aws_security_group.eks_nodes.id
+  type                     = "ingress"
+  protocol                 = "tcp"
+  from_port                = var.ingress_http_nodeport
+  to_port                  = var.ingress_http_nodeport
+  source_security_group_id = aws_security_group.lb_sg.id
+  description              = "Allow traffic from ALB to NodePort for HTTP ingress (31142)"
+}
+
+resource "aws_security_group_rule" "nodes_ingress_from_lb_https" {
+  security_group_id        = aws_security_group.eks_nodes.id
+  type                     = "ingress"
+  protocol                 = "tcp"
+  from_port                = var.ingress_https_nodeport
+  to_port                  = var.ingress_https_nodeport
+  source_security_group_id = aws_security_group.lb_sg.id
+  description              = "Allow traffic from ALB to NodePort for HTTPS ingress (31080)"
+}

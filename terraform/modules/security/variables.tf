@@ -18,3 +18,15 @@ variable "admin_ips" {
   type        = list(string)
   sensitive   = true
 }
+
+variable "ingress_http_nodeport" {
+  description = "NodePort HTTP"
+  type        = number
+  default     = 31142
+}
+
+variable "ingress_https_nodeport" {
+  description = "NodePort HTTPS"
+  type        = number
+  default     = 31080
+}

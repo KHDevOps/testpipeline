@@ -21,7 +21,7 @@ resource "aws_lb_target_group" "ingress_http_tg" {
     Environment = var.environment
   }
 }
-
+/*
 # Instead of using for_each with unknown values, create a null_resource 
 # that will be triggered after EKS nodes are created
 resource "null_resource" "register_targets" {
@@ -46,4 +46,4 @@ resource "null_resource" "register_targets" {
   }
 
   depends_on = [aws_lb_target_group.ingress_http_tg]
-}
+}*/
