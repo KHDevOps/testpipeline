@@ -8,14 +8,10 @@ terraform {
   }
 }
 
-data "aws_route53_zone" "main" {
-  name = var.domain_name
-}
-
 resource "aws_route53_record" "subdomains" {
   for_each = toset(var.subdomains)
   
-  zone_id = data.aws_route53_zone.main.zone_id
+  zone_id = var.zone_id
   name    = "${each.value}.${var.domain_name}"
   type    = "A"
   

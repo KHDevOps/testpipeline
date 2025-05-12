@@ -18,3 +18,8 @@ variable "load_balancer_zone_id" {
   description = "Zone ID of the load balancer"
   type        = string
 }
+
+variable "zone_id" {
+  description = "Zone ID of the Route53 zone"
+  type        = string
+}
