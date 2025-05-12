@@ -7,5 +7,5 @@ module "loadbalancer" {
   eks_nodes_sg_id = module.security.eks_nodes_sg_id
   cluster_name = local.cluster_name
   domain_name = var.domain_name
-  certificate_arn = module.acm.certificate_arn
+  certificate_arn = data.aws_acm_certificate.wildcard.arn
 }

@@ -1,4 +1,4 @@
-module "route53" {
+/*module "route53" {
   source = "../../modules/route53"
   
   zone_id = module.dns_zone.zone_id
@@ -15,4 +15,4 @@ module "route53" {
   load_balancer_zone_id  = module.loadbalancer.lb_zone_id
 
   depends_on = [module.loadbalancer]
-}
+}*/
