@@ -18,3 +18,7 @@ controller:
     nodePorts:
       http: 31142
       https: 31080
+  config:
+    ssl-redirect: "false"
+  extraArgs:
+    enable-ssl-passthrough: "false"
