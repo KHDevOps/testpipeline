@@ -45,3 +45,9 @@ variable "domain_name" {
   description = "Domain name"
   type = string
 }
+
+variable "certificate_arn" {
+  description = "ACM certificat ARN for HTTPS listeners"
+  type        = string
+  default     = ""
+}
