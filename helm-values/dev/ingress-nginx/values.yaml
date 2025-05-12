@@ -15,6 +15,7 @@ controller:
     targetCPUUtilizationPercentage: 70
     targetMemoryUtilizationPercentage: 80
   service:
+    type: NodePort
     nodePorts:
       http: 31142
       https: 31080
