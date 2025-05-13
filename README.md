@@ -6,6 +6,24 @@ This project provides a scalable DevOps platform deployed on Amazon EKS. The pla
 
 ## Project Overview
 
+```
+.
+├── ansible/                # Ansible playbooks and roles
+│   ├── playbooks/          # Task-specific playbooks
+│   └── roles/              # Reusable Ansible roles
+├── ci-cd/                  # CI/CD configuration
+│   ├── argocd/             # ArgoCD application definitions
+│   └── Jenkinsfile         # Jenkins pipeline definition
+├── helm-values/            # Environment-specific Helm values
+│   └── dev/                # Development environment values
+├── kubernetes/             # Kubernetes manifests
+│   ├── base/               # Base Kubernetes configurations
+│   └── overlays/           # Environment-specific overlays
+└── terraform/              # Terraform modules and environments
+    ├── environnements/     # Environment-specific configurations
+    └── modules/            # Reusable Terraform modules
+```
+
 This project provides a comptlete DevOps platform with:
 
 1. **Secure Kubernetes Infrastructure** on Amazon EKS with private nodes and controlled access
@@ -56,7 +74,7 @@ The platform consists of the following components:
 
 ## Prerequisites
 
-- **Amazon Web Services**** account with billing enabled
+- **Amazon Web Services** account with billing enabled
 - **AWS CLI** installed and configured
 - **Terraform** installed on your machine
 - **Kubernetes** CLI (kubectl) installed
@@ -84,7 +102,23 @@ aws configure
 
 Enter your AWS credentials when prompted.
 
-### Step 3: Deploy Infrastructure with Terraform
+### Step 3: Request an SSL Certificate in AWS Certificate Manager
+
+Before deploying the infrastructure, you need to request an SSL certificate for your domain:
+
+1. Go to AWS Certificate Manager in the AWS Console
+2. Click "Request a certificate" and select "Request a public certificate"
+3. Enter your domain name (e.g., `yourdomain.com`) and add a wildcard subdomain (e.g., `*.yourdomain.com`)
+4. Choose DNS validation method (recommended)
+5. Add tags if needed and click "Request"
+6. Follow the DNS validation process:
+   - In the certificate details, look for the CNAME records AWS provides
+   - Add these CNAME records to your domain's DNS settings
+   - Wait for validation to complete (can take up to 30 minutes)
+
+Make note of the certificate ARN as you'll need it for the next step.
+
+### Step 4: Deploy Infrastructure with Terraform
 
 ```bash
 cd terraform/environnements/dev
@@ -94,7 +128,7 @@ terraform apply
 
 The infrastructure deployment will take approximately 10-15 minutes.
 
-### Step 4: Configure ArgoCD Applications using Ansible
+### Step 5: Configure ArgoCD Applications using Ansible
 
 Once the infrastructure is ready, use Ansible to deploy ArgoCD applications and configure the target groups:
 
@@ -108,7 +142,7 @@ This will:
 - Configure target groups for the load balancer
 - Connect the worker nodes to the target groups
 
-### Step 5: Configure DNS Records
+### Step 6: Configure DNS Records
 
 Use the load balancer DNS name provided in the Ansible output to configure your DNS records:
 
@@ -121,7 +155,7 @@ Link them to the load balancer using this DNS name:
 
 It will install all we need in the cluster.
 
-### Step 6: Access the Services
+### Step 7: Access the Services
 
 Once DNS propagation is complete, you can access:
 
@@ -137,7 +171,7 @@ For ArgoCD, get the initial admin password:
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
 
-### CleanUp
+## CleanUp
 
 To remove all deployed resources, run:
 
