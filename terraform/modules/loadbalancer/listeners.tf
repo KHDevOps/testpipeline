@@ -4,15 +4,28 @@ resource "aws_lb_listener" "http" {
   protocol          = "HTTP"
   
   default_action {
-    type = "fixed-response"
-    fixed_response {
-      content_type = "text/html"
-      message_body = "<html><body><h1>Monitoring Services Portal</h1></body></html>"
-      status_code  = "200"
+    type = "redirect"
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
     }
   }
 }
 
+resource "aws_lb_listener" "https" {
+  
+  load_balancer_arn = aws_lb.monitoring_lb.arn
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = var.certificate_arn
+  
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.ingress_http_tg.arn
+  }
+}
 
 resource "aws_lb_listener_rule" "prometheus" {
   listener_arn = aws_lb_listener.http.arn
@@ -25,7 +38,7 @@ resource "aws_lb_listener_rule" "prometheus" {
 
   condition {
     host_header {
-      values = ["eksprometheus.duckdns.org"]
+      values = ["prometheus.${var.domain_name}"]
     }
   }
 }
@@ -41,7 +54,7 @@ resource "aws_lb_listener_rule" "grafana" {
 
   condition {
     host_header {
-      values = ["eksgrafana.duckdns.org"]
+      values = ["grafana.${var.domain_name}"]
     }
   }
 }
@@ -57,7 +70,7 @@ resource "aws_lb_listener_rule" "alertmanager" {
 
   condition {
     host_header {
-      values = ["eksalertmanager.duckdns.org"]
+      values = ["alertmanager.${var.domain_name}"]
     }
   }
 }
@@ -73,7 +86,7 @@ resource "aws_lb_listener_rule" "jenkins" {
 
   condition {
     host_header {
-      values = ["eksjenkins.duckdns.org"]
+      values = ["jenkins.${var.domain_name}"]
     }
   }
 }
@@ -89,7 +102,7 @@ resource "aws_lb_listener_rule" "argocd" {
 
   condition {
     host_header {
-      values = ["eksargocd.duckdns.org"]
+      values = ["argocd.${var.domain_name}"]
     }
   }
 }

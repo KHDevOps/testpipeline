@@ -23,3 +23,12 @@ resource "aws_lb" "monitoring_lb" {
     Purpose     = "Access to monitoring and CI/CD UIs"
   }
 }
+
+resource "null_resource" "cleanup_before_destroy" {
+  provisioner "local-exec" {
+    when    = destroy
+    command = "kubectl get svc -A | grep -i LoadBalancer | awk '{print $1, $2}' | xargs -I {} sh -c 'kubectl delete svc {} -n {}' && sleep 30"
+  }
+
+  depends_on = [aws_lb.monitoring_lb]
+}

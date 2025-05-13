@@ -1,4 +1,3 @@
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -6,21 +5,21 @@ metadata:
   namespace: monitoring
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
-  - host: eksprometheus.duckdns.org
+  - host: prometheus.leo-mendoza.com
     http:
       paths:
-      - path: /(.*)
+      - path: /
         pathType: Prefix
         backend:
           service:
             name: prometheus-kube-prometheus-prometheus
             port:
               number: 9090
+
 ---
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -28,22 +27,21 @@ metadata:
   namespace: monitoring
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$1  # Modifié pour une redirection directe
 spec:
   rules:
-  - host: eksgrafana.duckdns.org  # Ajout du host dédié pour Grafana
+  - host: grafana.leo-mendoza.com
     http:
       paths:
-      - path: /(.*)
+      - path: /
         pathType: Prefix
         backend:
           service:
             name: prometheus-grafana
             port:
-              number: 3000
+              number: 80
+
 ---
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -51,21 +49,21 @@ metadata:
   namespace: monitoring
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
-  - host: eksalertmanager.duckdns.org 
+  - host: alertmanager.leo-mendoza.com
     http:
       paths:
-      - path: /(.*)
+      - path: /
         pathType: Prefix
         backend:
           service:
             name: prometheus-kube-prometheus-alertmanager
             port:
               number: 9093
+
 ---
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -73,34 +71,33 @@ metadata:
   namespace: devops-tools
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
-  - host: eksjenkins.duckdns.org
+  - host: jenkins.leo-mendoza.com
     http:
       paths:
-      - path: /(.*)
+      - path: /
         pathType: Prefix
         backend:
           service:
             name: jenkins
             port:
               number: 8080
+
 ---
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: argocd-server-ingress
   namespace: argocd
   annotations:
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false" 
 spec:
-  ingressClassName: nginx
   rules:
-  - host: eksargocd.duckdns.org
+  - host: argocd.leo-mendoza.com
     http:
       paths:
       - path: /
@@ -109,4 +106,4 @@ spec:
           service:
             name: argocd-server
             port:
-              number: 80
+              number: 80 

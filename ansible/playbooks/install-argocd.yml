@@ -1,6 +1,0 @@
----
-- name: Install Argo CD
-  hosts: kubernetes
-  gather_facts: false
-  roles:
-    - role: argocd

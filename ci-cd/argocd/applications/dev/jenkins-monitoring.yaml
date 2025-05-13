@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Leomendoza13/eks-scalable-devops-platform
+    repoURL: https://github.com/KHDevOps/eks-scalable-devops-platform
     path: kubernetes/overlays/dev/monitoring/prometheus
-    targetRevision: aws
+    targetRevision: readmev2
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring

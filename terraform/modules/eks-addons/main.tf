@@ -59,3 +59,54 @@ resource "aws_eks_addon" "ebs_csi_driver" {
     aws_iam_role_policy_attachment.ebs_csi_driver
   ]
 }
+
+resource "aws_iam_role" "cluster_autoscaler" {
+  name = "${var.cluster_name}-cluster-autoscaler"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Federated = aws_iam_openid_connect_provider.eks.arn
+        }
+        Action = "sts:AssumeRoleWithWebIdentity"
+        Condition = {
+          StringEquals = {
+            "${replace(var.cluster_oidc_issuer_url, "https://", "")}:sub" = "system:serviceaccount:kube-system:cluster-autoscaler"
+          }
+        }
+      }
+    ]
+  })
+}
+
+resource "aws_iam_policy" "cluster_autoscaler" {
+  name        = "${var.cluster_name}-cluster-autoscaler"
+  description = "Policy for Cluster Autoscaler"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "autoscaling:DescribeAutoScalingGroups",
+          "autoscaling:DescribeAutoScalingInstances",
+          "autoscaling:DescribeLaunchConfigurations",
+          "autoscaling:DescribeTags",
+          "autoscaling:SetDesiredCapacity",
+          "autoscaling:TerminateInstanceInAutoScalingGroup",
+          "ec2:DescribeLaunchTemplateVersions"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "cluster_autoscaler" {
+  role       = aws_iam_role.cluster_autoscaler.name
+  policy_arn = aws_iam_policy.cluster_autoscaler.arn
+}

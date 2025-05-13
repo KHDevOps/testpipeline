@@ -1,0 +1,23 @@
+#apiVersion: argoproj.io/v1alpha1
+#kind: Application
+#metadata:
+#  name: cert-manager
+#  namespace: argocd
+#spec:
+#  project: default
+#  source:
+#    repoURL: https://github.com/KHDevOps/eks-scalable-devops-platform
+#    path: helm-charts/cert-manager
+#    targetRevision: readmev2
+#   helm:
+#      valueFiles:
+#        - ../../helm-values/dev/cert-manager/values.yaml
+#  destination:
+#    server: https://kubernetes.default.svc
+#    namespace: cert-manager
+#  syncPolicy:
+#    automated:
+#      prune: true
+#      selfHeal: true
+#    syncOptions:
+#    - CreateNamespace=true

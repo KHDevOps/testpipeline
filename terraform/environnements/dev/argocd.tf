@@ -21,4 +21,9 @@ module "argocd" {
   depends_on = [
     module.eks
   ]
+  
+  providers = {
+    kubernetes = kubernetes
+    helm = helm
+  }
 }

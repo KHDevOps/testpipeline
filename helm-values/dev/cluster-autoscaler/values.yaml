@@ -1,0 +1,63 @@
+awsRegion: eu-west-3
+
+autoDiscovery:
+  enabled: true
+  clusterName: eks-cluster-dev
+
+rbac:
+  create: true
+  serviceAccount:
+    create: true
+    name: cluster-autoscaler
+    annotations:
+      eks.amazonaws.com/role-arn: "arn:aws:iam::${ACCOUNT_ID}:role/eks-cluster-dev-autoscaler-role"
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 300Mi
+  requests:
+    cpu: 100m
+    memory: 300Mi
+
+extraArgs:
+  scan-interval: 10s
+  max-node-provision-time: 15m
+  skip-nodes-with-local-storage: false
+  skip-nodes-with-system-pods: true
+  expander: least-waste
+  balance-similar-node-groups: true
+  scale-down-enabled: true
+  scale-down-delay-after-add: 2m
+  scale-down-delay-after-delete: 0s
+  scale-down-delay-after-failure: 3m
+  scale-down-unneeded-time: 2m
+  scale-down-utilization-threshold: 0.5
+
+affinity:
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - weight: 100
+      preference:
+        matchExpressions:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+
+tolerations:
+- key: node-role.kubernetes.io/control-plane
+  operator: Exists
+  effect: NoSchedule
+
+podSecurityContext:
+  fsGroup: 65534
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 65534
+  runAsGroup: 65534
+
+serviceMonitor:
+  enabled: true
+  namespace: monitoring
+  selector:
+    release: prometheus

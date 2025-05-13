@@ -87,11 +87,16 @@ resource "aws_eks_node_group" "main" {
 
   scaling_config {
     desired_size = 2
-    max_size     = 3
+    max_size     = 5
     min_size     = 1
   }
 
   capacity_type = "ON_DEMAND"
+
+  tags = {
+  "k8s.io/cluster-autoscaler/enabled"               = "true"
+  "k8s.io/cluster-autoscaler/${var.cluster_name}"   = "owned"
+  }
 }
 
 resource "null_resource" "update_kubeconfig" {

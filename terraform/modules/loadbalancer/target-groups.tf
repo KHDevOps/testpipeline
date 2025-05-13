@@ -22,6 +22,31 @@ resource "aws_lb_target_group" "ingress_http_tg" {
   }
 }
 
+resource "aws_lb_target_group" "ingress_https_tg" {
+  name     = "${var.environment}-ingress-https-tg"
+  port     = var.ingress_https_nodeport
+  protocol = "HTTPS"
+  vpc_id   = var.vpc_id
+  target_type = "instance"
+  
+  health_check {
+    enabled             = true
+    interval            = 30
+    path                = "/healthz"
+    port                = "traffic-port"
+    protocol            = "HTTPS"
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
+    timeout             = 5
+    matcher             = "200"
+  }
+
+  tags = {
+    Name        = "${var.environment}-ingress-https-tg"
+    Environment = var.environment
+  }
+}
+/*
 # Instead of using for_each with unknown values, create a null_resource 
 # that will be triggered after EKS nodes are created
 resource "null_resource" "register_targets" {
@@ -46,4 +71,30 @@ resource "null_resource" "register_targets" {
   }
 
   depends_on = [aws_lb_target_group.ingress_http_tg]
+}*/
+
+data "aws_instances" "eks_nodes" {
+  filter {
+    name   = "tag:kubernetes.io/cluster/${var.cluster_name}"
+    values = ["owned"]
+  }
+  
+  filter {
+    name   = "instance-state-name"
+    values = ["running"]
+  }
+}
+
+resource "aws_lb_target_group_attachment" "ingress_http" {
+  count             = length(data.aws_instances.eks_nodes.ids)
+  target_group_arn  = aws_lb_target_group.ingress_http_tg.arn
+  target_id         = data.aws_instances.eks_nodes.ids[count.index]
+  port              = var.ingress_http_nodeport
+}
+
+resource "aws_lb_target_group_attachment" "ingress_https" {
+  count             = length(data.aws_instances.eks_nodes.ids)
+  target_group_arn  = aws_lb_target_group.ingress_https_tg.arn
+  target_id         = data.aws_instances.eks_nodes.ids[count.index]
+  port              = var.ingress_https_nodeport
 }

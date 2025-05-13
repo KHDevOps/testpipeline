@@ -99,6 +99,14 @@ resource "aws_security_group" "lb_sg" {
     cidr_blocks = var.admin_ips
     description = "HTTP from allowed admin only"
   }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = var.admin_ips
+    description = "HTTPS from allowed admin only"
+  }
   
   # Règles d'egress - vers les nœuds EKS sur les NodePorts
   egress {
@@ -131,4 +139,25 @@ resource "aws_security_group" "lb_sg" {
     Name        = "${var.environment}-monitoring-lb-sg"
     Environment = var.environment
   }
+}
+
+
+resource "aws_security_group_rule" "nodes_ingress_from_lb_http" {
+  security_group_id        = aws_security_group.eks_nodes.id
+  type                     = "ingress"
+  protocol                 = "tcp"
+  from_port                = var.ingress_http_nodeport
+  to_port                  = var.ingress_http_nodeport
+  source_security_group_id = aws_security_group.lb_sg.id
+  description              = "Allow traffic from ALB to NodePort for HTTP ingress (31142)"
+}
+
+resource "aws_security_group_rule" "nodes_ingress_from_lb_https" {
+  security_group_id        = aws_security_group.eks_nodes.id
+  type                     = "ingress"
+  protocol                 = "tcp"
+  from_port                = var.ingress_https_nodeport
+  to_port                  = var.ingress_https_nodeport
+  source_security_group_id = aws_security_group.lb_sg.id
+  description              = "Allow traffic from ALB to NodePort for HTTPS ingress (31080)"
 }
