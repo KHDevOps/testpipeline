@@ -72,6 +72,32 @@ The platform consists of the following components:
 - **Target Group Isolation**: Application traffic routed only to ingress controller ports
 - **NodePort-based Ingress**: Controlled exposure of services
 
+## Helm Chart Management
+
+### Vendored Helm Charts
+
+This project uses a "chart vendoring" approach where third-party Helm charts are copied into the repository to ensure:
+
+1. **Version Control**: Exact versions of charts are maintained and tracked alongside the infrastructure code
+2. **Customization**: Charts can be modified to suit specific project needs
+3. **Stability**: Prevents unexpected changes from upstream chart repositories
+4. **Offline Deployment**: Enables deployment in environments without direct Internet access
+
+The vendored charts are located in the `helm-charts/` directory with corresponding values in `helm-values/<environment>/`.
+
+### Third-Party Chart Attributions
+
+The following third-party Helm charts are included in this repository:
+
+- **ArgoCD**: [argoproj/argo-helm](https://github.com/argoproj/argo-helm) - Apache 2.0 License
+- **Prometheus**: [prometheus-community/helm-charts](https://github.com/prometheus-community/helm-charts) - Apache 2.0 License
+- **NGINX Ingress Controller**: [kubernetes/ingress-nginx](https://github.com/kubernetes/ingress-nginx) - Apache 2.0 License
+- **Jenkins**: [jenkinsci/helm-charts](https://github.com/jenkinsci/helm-charts) - Apache 2.0 License
+- **Metrics Server**: [kubernetes-sigs/metrics-server](https://github.com/kubernetes-sigs/metrics-server) - Apache 2.0 License
+- **Cluster Autoscaler**: [kubernetes/autoscaler](https://github.com/kubernetes/autoscaler) - Apache 2.0 License
+
+Each chart retains its original license within its directory. All modifications to the charts are documented in the respective chart's README file.
+
 ## Prerequisites
 
 - **Amazon Web Services** account with billing enabled
