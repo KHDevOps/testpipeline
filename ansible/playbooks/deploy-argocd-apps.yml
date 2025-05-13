@@ -1,9 +1,3 @@
----
-# This playbook assumes you have already:
-# 1. Manually executed terraform apply
-# 2. Installed ArgoCD via terraform or manually
-# It will simply deploy ArgoCD apps and configure target groups
-
 - name: Deploy ArgoCD Apps and Configure Target Groups
   hosts: localhost
   connection: local
@@ -11,15 +5,17 @@
   vars:
     # Basic parameters
     cluster_name: "eks-cluster-dev"
+    k8s_context: "{{ lookup('env', 'K8S_CONTEXT') | default(cluster_name, true) }}"
     ingress_http_nodeport: 31142
     ingress_https_nodeport: 31080
     argocd_apps_dir: "{{ playbook_dir }}/../../ci-cd/argocd/applications/dev"
+    aws_region: "eu-west-3"
     
   tasks:
     # Step 1: Verify we can access the cluster
     - name: Verify EKS cluster access
       ansible.builtin.command: 
-        cmd: kubectl cluster-info
+        cmd: kubectl --context {{ k8s_context }} cluster-info
       register: cluster_info
       changed_when: false
       ignore_errors: true
@@ -28,6 +24,18 @@
       ansible.builtin.fail:
         msg: "Unable to access EKS cluster. Please check your kubeconfig."
       when: cluster_info.rc != 0
+      
+    - name: Ensure AWS CLI is configured for the correct region
+      ansible.builtin.command:
+        cmd: aws configure get region
+      register: aws_region_check
+      changed_when: false
+      
+    - name: Set AWS region if needed
+      ansible.builtin.command:
+        cmd: aws configure set region {{ aws_region }}
+      when: aws_region_check.stdout != aws_region
+      changed_when: true
     
     # Step 2: Apply ArgoCD applications
     - name: Find valid ArgoCD application files (not commented)
@@ -38,7 +46,7 @@
       
     - name: Apply ArgoCD applications with kubectl
       ansible.builtin.command:
-        cmd: kubectl apply -f {{ item }}
+        cmd: kubectl --context {{ k8s_context }} apply -f {{ item }}
       with_items: "{{ valid_apps_files.stdout_lines }}"
       register: kubectl_apply
       changed_when: kubectl_apply.rc == 0
