@@ -5,15 +5,14 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
+  sources:
     - repoURL: https://kubernetes.github.io/ingress-nginx
       chart: ingress-nginx
       targetRevision: 4.12.3
       helm:
         valueFiles:
-          - $values/dev/ingress-nginx/values.yaml
+          - $values/kubernetes/helm-values/dev/ingress-nginx/values.yaml
     - repoURL: https://github.com/KHDevOps/eks-scalable-devops-platform
-      path: kubernetes/helm-values
       targetRevision: refacto2
       ref: values
   destination:

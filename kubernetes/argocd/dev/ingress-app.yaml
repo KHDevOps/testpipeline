@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/KHDevOps/eks-scalable-devops-platform
     targetRevision: refacto2
-    path: kubernetes/networking/ingress/overlays/dev
+    path: kubernetes/platform/networking/ingress/overlays/dev
   destination:
     server: https://kubernetes.default.svc
     namespace: ingress-system

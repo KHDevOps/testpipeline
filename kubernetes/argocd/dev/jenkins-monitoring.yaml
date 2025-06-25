@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/KHDevOps/eks-scalable-devops-platform
-    path: kubernetes/platform/monitoring/prometheus/overlays/dev
+    path: kubernetes/platform/monitoring/prometheus/overlays/dev/
     targetRevision: refacto2
   destination:
     server: https://kubernetes.default.svc

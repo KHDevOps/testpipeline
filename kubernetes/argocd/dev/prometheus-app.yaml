@@ -5,21 +5,15 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
+  sources:
     - repoURL: https://prometheus-community.github.io/helm-charts
       chart: kube-prometheus-stack
       targetRevision: 75.5.0
       helm:
         valueFiles:
-          - $values/dev/prometheus/values.yaml
-        parameters:
-          - name: grafana.enabled
-            value: "true"
-          - name: alertmanager.enabled
-            value: "true"
+          - $values/kubernetes/helm-values/dev/prometheus/values.yaml
     - repoURL: https://github.com/KHDevOps/eks-scalable-devops-platform
       targetRevision: refacto2
-      path: kubernetes/helm-values
       ref: values
   destination:
     server: https://kubernetes.default.svc
