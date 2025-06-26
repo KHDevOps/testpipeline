@@ -1,3 +1,7 @@
+prometheusOperator:
+  admissionWebhooks:
+    enabled: false
+
 server:
   resources:
     requests:
