@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jenkins
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://charts.jenkins.io
+      chart: jenkins
+      targetRevision: 5.8.59
+      helm:
+        valueFiles:
+          - $values/kubernetes/helm-values/dev/jenkins/values.yaml
+    - repoURL: https://github.com/KHDevOps/eks-scalable-devops-platform
+      targetRevision: refacto2
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: devops-tools
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
