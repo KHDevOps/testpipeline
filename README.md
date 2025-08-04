@@ -8,20 +8,41 @@ This project provides a scalable DevOps platform deployed on Amazon EKS. The pla
 
 ```
 .
-├── ansible/                # Ansible playbooks and roles
-│   ├── playbooks/          # Task-specific playbooks
-│   └── roles/              # Reusable Ansible roles
-├── ci-cd/                  # CI/CD configuration
-│   ├── argocd/             # ArgoCD application definitions
-│   └── Jenkinsfile         # Jenkins pipeline definition
-├── helm-values/            # Environment-specific Helm values
-│   └── dev/                # Development environment values
-├── kubernetes/             # Kubernetes manifests
-│   ├── base/               # Base Kubernetes configurations
-│   └── overlays/           # Environment-specific overlays
-└── terraform/              # Terraform modules and environments
-    ├── environnements/     # Environment-specific configurations
-    └── modules/            # Reusable Terraform modules
+├── ansible
+│   ├── playbooks
+│   └── roles
+├── assets
+├── ci-cd
+├── demo-app
+│   └── src
+├── kind
+├── kubernetes
+│   ├── argocd
+│   │   └── dev
+│   ├── helm-values
+│   │   └── dev
+│   ├── infrastucture
+│   │   └── cert-manager
+│   └── platform
+│       ├── monitoring
+│       └── networking
+└── terraform
+    ├── environnements
+    │   ├── dev
+    │   ├── prod
+    │   └── staging
+    └── modules
+        ├── acm
+        ├── argocd
+        ├── dns-zone
+        ├── eks
+        ├── eks-addons
+        ├── iam
+        ├── loadbalancer
+        ├── network
+        ├── route53
+        ├── secrets
+        └── security
 ```
 
 This project provides a comptlete DevOps platform with:
@@ -156,11 +177,10 @@ The infrastructure deployment will take approximately 10-15 minutes.
 
 ### Step 5: Configure ArgoCD Applications using Ansible
 
-Once the infrastructure is ready, use Ansible to deploy ArgoCD applications and configure the target groups:
+Once the infrastructure is ready, deploy ArgoCD applications:
 
 ```bash
-cd ../../ansible
-ansible-playbook playbooks/deploy-argocd-apps.yml
+helm install argocd argo/argo-cd --namespace argocd --create-namespace
 ```
 
 This will:
@@ -196,6 +216,9 @@ For ArgoCD, get the initial admin password:
 ```bash
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
+
+### Step 8: Deploy Your Image
+#TODO
 
 ## CleanUp
 
