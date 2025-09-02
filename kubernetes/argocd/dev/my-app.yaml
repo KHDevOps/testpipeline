@@ -1,20 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ingress-system
+  name: my-app
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/KHDevOps/eks-scalable-devops-platform
+    path: kubernetes/app/overlays/dev
     targetRevision: main
-    path: kubernetes/platform/networking/ingress/overlays/dev
   destination:
     server: https://kubernetes.default.svc
-    namespace: ingress-system
+    namespace: hello-app
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-    - CreateNamespace=false 
+    - CreateNamespace=true
