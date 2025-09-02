@@ -13,7 +13,7 @@ spec:
         valueFiles:
           - $values/kubernetes/helm-values/dev/metrics-server/values.yaml
     - repoURL: https://github.com/KHDevOps/eks-scalable-devops-platform
-      targetRevision: refacto2
+      targetRevision: main
       ref: values
   destination:
     server: https://kubernetes.default.svc
