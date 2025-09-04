@@ -43,5 +43,3 @@ terraform.tfvars
 hosts.ini
 
 .env
-
-app-config.yaml
