@@ -441,10 +441,10 @@ advanced:
 # -----------------------------------------------------------------------------
 git:
   # Source repository (your application code)
-  source_repo: ""
+  source_repo: "" #Do not put https://
   
   # Config repository (GitOps configuration)
-  config_repo: ""
+  config_repo: "" #Do not put https://
   
   # Default branch
   default_branch: "main"

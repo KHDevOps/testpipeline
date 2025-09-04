@@ -444,7 +444,7 @@ git:
   source_repo: ""
   
   # Config repository (GitOps configuration)
-  config_repo: "https://github.com/KHDevOps/testpipeline"
+  config_repo: "github.com/KHDevOps/testpipeline"
   
   # Default branch
   default_branch: "main"
