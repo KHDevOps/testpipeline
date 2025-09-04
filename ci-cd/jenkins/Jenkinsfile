@@ -49,7 +49,9 @@ Build Information:
 
 This is a test deployment!
 """
-                
+
+                    sh('git config user.email "jenkins@yourproject.com"')
+                    sh('git config user.name "Jenkins Automation"')
                     
                     withCredentials([usernamePassword(credentialsId: params.GIT_CREDENTIALS, passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         sh('git add hello-world.txt')
