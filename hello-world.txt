@@ -1,0 +1,10 @@
+
+Hello World from Jenkins!
+
+Build Information:
+- Build Number: 8
+- Job Name: My-Pipeline
+- Date: Thu Sep 04 15:50:48 UTC 2025
+- Branch: main
+
+This is a test deployment!
