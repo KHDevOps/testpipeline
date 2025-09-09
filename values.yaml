@@ -1,0 +1,19 @@
+
+nameOverride: "my-awesome-app"
+fullnameOverride: "my-awesome-app"
+replicaCount: 1
+image:
+  repository: "nginxdemos/hello"
+  tag: "latest"
+  pullPolicy: IfNotPresent
+service:
+  type: ClusterIP
+  port: 80
+serviceAccount:
+  create: true
+  automount: true
+autoscaling:
+  enabled: false
+ingress:
+  enabled: false
+resources: {}
